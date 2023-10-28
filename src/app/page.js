@@ -1,113 +1,90 @@
 import Image from 'next/image'
+import StyledLink from './components/UI/StyledLink'
+import ButtonPrimary from './components/UI/ButtonPrimary'
+import ButtonSecondary from './components/UI/ButtonSecondary'
+import ProfilePhoto from './components/UI/ProfilePhoto'
+import ArticleCard from './components/UI/ArticleCard'
+import ProjectCard from './components/UI/ArticleCard2'
+
+export const metadata = {
+	title: 'Bogdan Gevko',
+	description: 'Bogdan Gevko, software developer and computer science student at Oregon State University.',
+}
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <main className="py-20 flex w-full mx-auto flex-col lg:py-24">
+			<header className="pb-24 mx-auto w-full max-w-5xl flex flex-col justify-between items-center lg:items-top lg:flex-row">
+				<ProfilePhoto />
+				<div className="max-w-prose flex flex-col items-center lg:items-start">
+					<h1 className="text-lg leading-7 font-semibold text-gray-500">Hi, I&apos;m Bogdan.</h1>
+					<p className="mb-8 text-4xl leading-10 font-bold text-gray-700 lg:mb-6">I create <span className="text-cyan-500">software</span></p>
+					<p className="mb-8 text-center text-base leading-6 font-normal text-gray-900 lg:text-left lg:mb-6"
+						>I&apos;m a full-time Computer Science student at Oregon State University. Welcome to my digital workshop, where I fine-tune my web development skills and catalog my broader technical pursuits.
+					</p>
+					<ButtonPrimary title="Get in touch" href="/contact" />
+				</div>
+			</header>
+			<section className="px-4 py-16 w-screen flex flex-col bg-blue-50 -mx-4">
+				<header className="mb-4 w-full max-w-prose lg:max-w-5xl mx-auto flex justify-between items-center">
+					<p className="text-lg leading-8 font-semibold text-gray-500">Recent Posts</p>
+					<ButtonSecondary title="View all" href="/blog" />
+				</header>
+				<article className="w-full mx-auto flex flex-col max-w-prose lg:max-w-5xl lg:flex-row lg:justify-between gap-4">
+					<ArticleCard 
+						date="30 Sep 2023"
+						title="Linux Cheatsheet"
+						content="Reference to common commands in Linux."
+						tags={['Linux']}
+						href="#"
+					/>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+					<ArticleCard
+						date="6 Oct 2023"
+						title="Build Script"
+						content="Sometimes, simple programs don't require the full power of CMake, but it can also get tedious to build your program every time with terminal commands. I have just the solution for such cases. Sometimes, simple programs don't require the full power of CMake, but it can also get tedious to build your program every time with terminal commands. I have just the solution for such cases."
+						tags={['C++', 'C']}
+						href="#"
+					/>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+					<ArticleCard
+						date="5 Oct 2023"
+						title="Sym Link a Command Line Tool"
+						content="How to make a command line tool work globally from any directory."
+						tags={['Linux']}
+						href="#"
+					/>
+				</article>
+			</section>
+			<section className="px-4 pt-16 w-screen flex flex-col bg-white -mx-4">
+				<header className="mb-8 pb-4 w-full border-b max-w-prose lg:max-w-5xl mx-auto flex justify-between items-center">
+					<p className="text-lg leading-8 font-normal text-gray-400 font-semibold">Featured Projects</p>
+					<ButtonSecondary title="View all" href="/projects" />
+				</header>
+				<article className="w-full mx-auto flex flex-col max-w-prose lg:max-w-5xl">
+					<ProjectCard
+						date="1 day ago"
+						title="I remade my website with Next.js 13"
+						content="I rewrote my previous website, which was written in React with NextJS. In this article, I talk my process and the challenges I faced along the way."
+						tags={['NextJS', 'React', 'TailwindCSS', 'CSS', 'HTML', 'JavaScript']}
+						href="#"
+					/>
+					<ProjectCard
+						date="24 Oct 2023"
+						title="I created a 3D renderer"
+						content="In this article, I talk about how I built an openGL renderer with the help of GLFW library."
+						tags={['C++', 'OpenGL']}
+						href="#"
+					/>
+					<ProjectCard
+						date="20 Sep 2023"
+						title="I rolled my own content management system"
+						content="I created a command line tool that automatically pushes my Obsidian notes to the blog on this website. I can edit my notes in Obsidian and push all the changes to the blog with a single command."
+						tags={['Python', 'Git', 'Markdown']}
+						href="#"
+					/>
+				</article>
+			</section>
+		</main>
   )
 }
