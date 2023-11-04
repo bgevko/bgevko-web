@@ -3,17 +3,9 @@ import React, {useState, useEffect} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ButtonTag from './ButtonTag.jsx';
 import ButtonPrimary from './ButtonPrimary.jsx';
-import Image from 'next/image';
-const info_icon = '/info.svg';
-
-// eslint-disable-next-line react/display-name
-const Component = React.forwardRef((props, ref) => (
-   <div ref={ref} />
-))
+import InfoTip from './InfoTip.jsx';
 
 function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, handleShowTags, handleClearTags, handleTagClick}) {
-	const MotionComponent = motion(Component)
-	const MotionImage = motion(Image)
 
 	const hoverStyle = {scale: 1.1}
 	const tapStyle = {scale: 0.9}
@@ -31,15 +23,7 @@ function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, h
 				>
 					{tagsVisible ? 'Hide filters' : 'Show filters'} 
 				</button>
-				<button>
-					<MotionImage src={info_icon} alt="info icon" width={32} height={32} 
-						initial={{ opacity: 0.8 }}
-						animate={{ opacity: 0.8 }}
-						whileHover={{ scale: 1.1, opacity: 1}} 
-						whileTap={{ scale: 0.9 }}
-						transition={transition}
-					/>
-				</button>
+				<InfoTip />
 			</div>
 
 			{/* Clear button */}
@@ -50,7 +34,7 @@ function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, h
 					initial={{ scale: 0 }}
 					animate={{ scale: 1 }}
 					exit={{ scale: 0, opacity: 0 }}
-					whileHover={{ hoverStyle }} whileTap={{ tapStyle }}
+					whileHover={hoverStyle} whileTap={tapStyle}
 					transition={transition}
 				>
 					Clear
