@@ -6,8 +6,8 @@ import { slide as Menu } from 'react-burger-menu'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // Images
-import hamburger_icon from '../../../public/hamburger-icon.svg'
-import hamburger_close_icon from '../../../public/hamburger-close-icon.svg'
+import hamburger_icon from '../../public/hamburger-icon.svg'
+import hamburger_close_icon from '../../public/hamburger-close-icon.svg'
 
 // Components
 import Scrim from './UI/Scrim.jsx'

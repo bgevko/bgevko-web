@@ -1,6 +1,6 @@
-import ButtonSecondary from '../components/UI/ButtonSecondary2'
-import Input from '../components/UI/TextInput'
-import TextArea from '../components/UI/TextArea'
+import ButtonSecondary from '@/components/UI/ButtonSecondary2'
+import Input from '@/components/UI/TextInput'
+import TextArea from '@/components/UI/TextArea'
 
 export default function Contact() {
 	return (
