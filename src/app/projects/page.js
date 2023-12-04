@@ -1,5 +1,5 @@
-import SectionTags from '../components/UI/SectionTags'
-import ProjectsList from '../components/UI/ArticlesList'
+import SectionTags from '@/components/UI/SectionTags'
+import ProjectsList from '@/components/UI/ArticlesList'
 
 export const metadata = {
 	title: "Bogdan's Projects",

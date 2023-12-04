@@ -3,8 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 // Images
-import linkedin_icon from '../../../public/linkedin-icon.svg'
-import github_icon from '../../../public/github-icon.svg'
+import linkedin_icon from '../../public/linkedin-icon.svg'
+import github_icon from '../../public/github-icon.svg'
 
 const Footer = () => {
 	return (

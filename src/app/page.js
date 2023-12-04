@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import StyledLink from './components/UI/StyledLink'
-import ButtonPrimary from './components/UI/ButtonPrimary'
-import ButtonSecondary from './components/UI/ButtonSecondary'
-import ProfilePhoto from './components/UI/ProfilePhoto'
-import ArticleCard from './components/UI/ArticleCard'
-import ProjectCard from './components/UI/ArticleCard2'
+import StyledLink from '@/components/UI/StyledLink'
+import ButtonPrimary from '@/components/UI/ButtonPrimary'
+import ButtonSecondary from '@/components/UI/ButtonSecondary'
+import ProfilePhoto from '@/components/UI/ProfilePhoto'
+import ArticleCard from '@/components/UI/ArticleCard'
+import ProjectCard from '@/components/UI/ArticleCard2'
 
 export const metadata = {
 	title: 'Bogdan Gevko',

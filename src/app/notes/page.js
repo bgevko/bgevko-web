@@ -1,7 +1,7 @@
-import SectionTags from '../components/UI/SectionTags'
-import Category from '../components/UI/NoteCategory.jsx'
-import NoteLink from '../components/UI/NoteLink.jsx'
-import NotesList from '../components/UI/NotesList.jsx'
+import SectionTags from '@/components/UI/SectionTags'
+import Category from '@/components/UI/NoteCategory.jsx'
+import NoteLink from '@/components/UI/NoteLink.jsx'
+import NotesList from '@/components/UI/NotesList.jsx'
 
 export const metadata = {
 	title: "Bogdan's Notes",
