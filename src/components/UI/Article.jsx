@@ -24,7 +24,7 @@ export default function Article( {metadata} ) {
 		}
 
 		const res = await randomImage.json()
-		console.log(res.data.message)
+		console.log(res.message)
 		return res.imageUrl
 	}
 
