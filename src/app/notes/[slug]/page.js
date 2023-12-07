@@ -9,7 +9,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import 'highlight.js/styles/github.css'
 import TableOfContents from '@/components/UI/TableOfContents'
 
-// export const revalidate = 86400
+export const revalidate = 86400
 
 export async function generateStaticParams() {
 	try {
