@@ -1,0 +1,70 @@
+---
+category: Linux
+title: Linux Tricks
+description: Useful Linux commands that I'm gradually accumulating.
+date: 2023-11-01
+tags:
+  - Linux
+---
+
+## Finding things
+- `fd -t f "Linux Cheatsheet"`: Finds the file starting from the current dir
+- `fd -t d "Dir name"`: Finds a directory starting from the current dir
+## Copy STDOUT to clipboard (macOS)
+- `<command> | pbcopy`: Copies output of command to clipboard
+## Check Command History
+- `history | grep <command>`: Shows the entire history of a given command
+## Compress and Extract using Tar
+- `tar -xvf filename.tar`: Extracts .tar into current dir
+- `tar czvf file.tar.gz <directory>`: Compresses a file or directory
+
+## Redirection and piping
+- `command > file`: Redirects the output of a command to a file
+- `command >> file`: Appends the output of a command to a file
+- `command < file`: Redirects the input of a command from a file
+- `command1 | command2`: Pipes the output of command1 to the input of command2
+
+You can mix and match:
+```bash
+grep "search_term" input.txt | sort | uniq > output.txt
+```
+- `grep`: Searches for a pattern in `input.txt`
+- `| sort`: Takes the output of `grep` and sorts it
+- `| uniq`: Takes the output of `sort` and removes duplicates
+- `> output.txt`: Takes the output of `uniq` and writes it to `output.txt`
+
+Here's another example:
+```bash
+cat < input.txt | grep "search_term" | sort > output.txt
+```
+- `cat < input.txt`: Takes the contents of `input.txt` and passes it to `cat`
+- `| grep "search_term"`: Takes the output of `cat` and searches for a pattern
+- `| sort`: Takes the output of `grep` and sorts it
+- `> output.txt`: Takes the output of `sort` and writes it to `output.txt`
+
+## Processes
+```bash
+# Finding Processes
+ps aux # List all processes
+ps aux | grep <name> # List all processes with <name>
+pgrep -f <name> # List all processes with <name>
+ps aux | grep Z # List all zombie processes
+```
+
+```bash
+# Killing Processes
+kill <pid> # Kill process with <pid>
+kill -9 <pid> # Kill process with <pid> (force)
+killall <name> # Kill all processes with <name>
+kill %<number> # Kill background process <number>
+# Other commands work with %<number> as well
+```
+```bash
+# Background Processes
+command & # Run command in background
+jobs # List all background processes
+fg <job> # Bring background process <job> to foreground
+fg %<number> # Bring background process <number> to foreground
+bg <job> # Resume background process <job>
+bg %<number> # Resume background process <number>
+```

@@ -1,3 +1,6 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+})
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,8 +21,20 @@ const nextConfig = {
 				port: '',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'unsplash.com',
+				port: '',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: 'picsum.photos',
+				port: '',
+				pathname: '/**',
+			}
 		],
 	},
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

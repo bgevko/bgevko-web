@@ -1,0 +1,66 @@
+---
+category: Web Development
+title: Reverse Proxy
+description: How to set up a reverse proxy with NGINX
+date: "2023-11-16"
+tags:
+  - Linux
+  - NGINX
+---
+
+In this example, I'll set up an instance of Node for general use on a virtual server and open it up to the public internet using NGINX as a reverse proxy.
+
+### Configuration File
+---
+First, I'll create a new file called `dev` in the `sites-available` directory.
+```bash
+sudo nvim /etc/nginx/sites-available/dev
+```
+
+Then, I'll add the following:
+```nginx
+server {
+    listen 80;
+    server_name dev.bgevko.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+A few notes here:
+- `dev.bgevko.com` is the subdomain I own. This domain is pointed to the IP address of the virtual server.
+- `localhost:3000` is the address of the Node instance I want to open up to the public internet.
+
+### Enabling the Configuration
+---
+Next, I'll enable the configuration by creating a symbolic link to the `sites-enabled` directory.
+```bash
+sudo ln -s /etc/nginx/sites-available/dev /etc/nginx/sites-enabled/
+```
+We can check that the link was created successfully by running:
+```bash
+ls -l /etc/nginx/sites-enabled/
+```
+You should be able to see `dev` in the output.
+
+We can restart NGINX to apply the changes:
+```bash
+sudo systemctl reload nginx
+```
+
+If you get an error, you can check the logs by running:
+```bash
+sudo cat /var/log/nginx/error.log
+```
+#### Optional
+You can secure your domain using Certbot. [How?](https://www.bgevko.com/blog/https-using-certbot)
+
+### Conclusion
+---
+You're all set! If you run your Node instance on port 3000, you'll be able to access it at the domain you specified.

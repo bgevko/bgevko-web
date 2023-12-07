@@ -7,7 +7,7 @@ import SectionTags from './SectionTags.jsx'
 import ArticleCard from './ArticleCard2.jsx'
 
 // Hooks
-import useFilterTags from '../../hooks/useFilterTags.js'
+import useFilterTags from '@/hooks/useFilterTags.js'
 
 const ArticlesList = ({articles}) => {
 	const { 
@@ -34,20 +34,23 @@ const ArticlesList = ({articles}) => {
 							<ArticleCard key={index}
 								date={article.date}
 								title={article.title}
-								content={article.content}
+								content={article.description}
 								tags={article.tags}
 								href={article.href}
+								image={article.image}
 							/>
 						))
 					}
 					{filterSet.size > 0 &&
 						filteredItems.map((article, index) => (
-							<ArticleCard key={index}
+							<ArticleCard 
+								key={index}
 								date={article.date}
 								title={article.title}
-								content={article.content}
+								content={article.description}
 								tags={article.tags}
 								href={article.href}
+								image={article.image}
 							/>
 						))
 					}

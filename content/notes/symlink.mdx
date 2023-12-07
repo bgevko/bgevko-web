@@ -1,0 +1,26 @@
+---
+category: General
+title: Create a Symlink
+description: How to make a command line tool work globally from any directory.
+date: 2023-10-05
+tags:
+  - Linux
+  - Python
+---
+
+What is a symlink? A symlink is a shortcut to a file or directory. 
+It's like a shortcut on Windows or a symbolic link on Mac. 
+It's a way to make a command line tool work globally from any directory. I needed
+to learn how to use a symlink when I created a command line tool with Python for the first time.
+I recorded the process below, mostly for my own reference.
+
+```bash
+cd /usr/local/bin # Path to binary dir, may vary based on OS
+sudo ln -s /~Projects/my-project/my-tool.py my-tool # Create the symlink
+cd /~Projects/my-project # Tool source directory
+chmod +x my-tool.py # Make the file executable
+
+# Execute from any directory
+my-tool
+```
+

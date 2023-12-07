@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {motion} from 'framer-motion'
 
 // Components
-import ButtonSecondary from '@/components/UI/ButtonSecondary'
+import { LinkButtonCyan } from '@/components/UI/Buttons'
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef((props, ref) => (
@@ -33,7 +33,7 @@ export default function NotFound() {
 				<MotionLink href="/" className="px-4 py-2 gap-4 rounded-md border flex" whileHover={hoverStyle} whileTap={tapStyle} transition={transition} >
 					<Image src={back_arrow} alt="Back to Home" width={24} height={24} />Go back
 				</MotionLink>
-				<ButtonSecondary href="/" title="Take me home" />
+				<LinkButtonCyan href="/">Take me home</LinkButtonCyan>
 			</nav>
     </div>
   )

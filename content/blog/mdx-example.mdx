@@ -1,0 +1,81 @@
+---
+title: MDX is Awesome
+description: If Markdown and JSX had a baby, it would be MDX. Well, it did, and it's awesome.
+date: "2023-12-03"
+image: /test-images/img1.png
+tags:
+  - MDX
+---
+
+<Callout>
+	I'm writing this inside of a `Callout` component. You're seeing the nice rendered box, but
+	what it actually looks like in my markdown file is this:
+	```jsx
+	<Callout>
+		My Text
+	</Callout>
+	```
+</Callout>
+
+This entire article is written in MDX.
+What is MDX? It's a combination of Markdown and JSX. 
+It's a way to use React components inside of Markdown.
+
+To give another example, here's a random `code` block:
+
+```js
+console.log('Hello World');
+```
+
+Do you see how there's a copy botton in the top right corner
+of the code block? That's because I'm using a custom MDX component.
+
+How does it work? 
+
+Well, in my case, I'm using Next with [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote),
+which parses my MDX files and provides a rendered HTML version of them to
+my Next app. I get to define custom components that will be rendered.
+
+For example, any instance of a `pre` tag will be rendered with my custom component
+that adds the copy button. Of course, there's a lot more to it than that, but that's
+the gist of it.
+
+So here are some examples of all the elements that are available to me directly from MDX:
+# Heading 1
+## Heading 2
+### Heading 3
+> Blockquote
+
+*Italic* **Bold** `Inline Code`
+```js
+// Code Block
+```
+
+Image:
+<Image src="/test-images/img1.png" alt="Image" width="500" height="500" />
+
+There's a few more, but you get the idea.
+
+There are a lot of possibilities. It makes creating web content very easy.
+Gone are the days where you have to edit your HTML files directly. 
+
+The design is modular. I can change any component I want, or add new ones. For example,
+I'll add a `Video` component later. It will allow me to embed a YouTube video in my article.
+directly into my article from my markdown file, and I won't have to worry
+about formatting and styling; all of that is taken care of when I define the component.
+
+Of course, there are some downsides. MDX can be a bit of a footgun. Your error handling
+has to be very good, or you can end up with a broken page if you make a mistake when
+calling a custom component. 
+
+Also, the setup can be a bit tricky. I spent a lot of time prowling through GitHub repos
+for examples to get my setup working. One repo that I found particularly helpful was 
+[taxonomy](https://github.com/shadcn-ui/taxonomy/tree/main) by [Shadcn](https://shadcn.com/).
+
+Taxonomy is an example of a modern Next.js 13 app that uses server components. 
+The bundled and deployed repo is presented as well as the demo [website](https://tx.shadcn.com/).
+
+Anyways, that's all I have to say about MDX for now. I'm sure I'll have 
+more things to share about it as I dive deeper into it and flesh out my website. 
+
+Thanks for reading!

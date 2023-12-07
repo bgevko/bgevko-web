@@ -59,7 +59,11 @@ function mapNotes(notes) {
 				<AnimatePresence>
 				{noteItem.notes.map(note => {
 					return (
-	 					<NoteLink key={note.title} title={note.title} tags={note.tags} href={note.href}>
+	 					<NoteLink 
+								key={note.title} 
+								title={note.title} 
+								tags={note.tags} 
+								href={note.href}>
 	 						{note.title}
 	 					</NoteLink>
 	 				)

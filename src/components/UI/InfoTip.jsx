@@ -29,6 +29,7 @@ function InfoTip() {
   return (
 		<div className="relative">
 			<button 
+				className="mt-1"
 				onMouseLeave={handleMouseLeave}
 				onClick={() => setTipVisible(!tipVisible)}
 				>

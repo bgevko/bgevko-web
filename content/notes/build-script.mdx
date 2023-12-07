@@ -1,0 +1,39 @@
+---
+category: C/C++
+title: Build Script
+description: Sometimes, simple programs don't require the full power of CMake, but it can also get tedious to build your program every time with terminal commands. I have just the solution for such cases.
+date: "2023-10-06"
+tags:
+  - C++ 
+  - C
+---
+
+Suppose you have a program that you're building and you constantly find yourself in the following pattern:
+- Make changes to the code
+- Close the current running instance
+- Build the program
+- Execute the program
+
+This can become very tedious, especially if you're like me and like to check your work frequently. You can create a bash script to automate this process for you.
+
+- Create a new file and call it something like `rebuild.sh`
+
+```bash
+#!/bin/bash
+
+# Kill the current process (assuming it's named 'sample')
+pkill -f ./sample
+
+# Compile the code, I have a makefile, but you can write your own build command here
+make
+
+# Run the program
+./sample
+```
+- Give the file permission to execute:
+```bash
+chmod +x rebuild.sh
+```
+
+Now, you can run `./rebuild` and you just saved yourself a couple commands. You can add anything into the build script.
+

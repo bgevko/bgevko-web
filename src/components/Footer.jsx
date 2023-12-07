@@ -3,22 +3,34 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 // Images
-import linkedin_icon from '../../public/linkedin-icon.svg'
-import github_icon from '../../public/github-icon.svg'
+import nextjs_icon from '../../public/nextjs-icon.svg'
+import react_icon from '../../public/react-icon.svg'
+import tailwind_icon from '../../public/tailwind-icon.svg'
+import mdx_icon from '../../public/mdx-icon.svg'
 
 const Footer = () => {
+	const iconStyle = "flex flex-col justify-center items-center text-gray-500"
 	return (
 		<footer className="px-8 py-12 mt-auto w-full flex flex-col justify-center items-center">
-			<nav className="mb-6 w-full flex flex justify-center">
-				<Link className="mr-4" href="https://www.linkedin.com/in/bogdan-gevko" target="_blank" rel="noopener noreferrer">
-					<Image src={linkedin_icon} alt="LinkedIn" />
-				</Link>
-				<Link href="https://www.github.com/bgevko" target="_blank" rel="noopener noreferrer">
-					<Image src={github_icon} alt="Github" />
-				</Link>
-
-			</nav>
-			<p className="text-sm leading-5 text-gray-500">© 2023 Bogdan Gevko</p>
+			<p className="mb-4 text-sm text-gray-500">Powered by</p>
+			<span className="gap-8 flex flex-wrap justify-center items-center">
+				<div className={iconStyle}>
+					<Image src={nextjs_icon} alt="Next.js"/>
+					<p className="text-xs">Next.js</p>
+				</div>
+				<div className={iconStyle}>
+					<Image src={react_icon} alt="React"/>
+					<p className="text-xs">React</p>
+				</div>
+				<div className={iconStyle}>
+					<Image src={tailwind_icon} alt="Tailwind CSS"/>
+					<p className="text-xs">Tailwind</p>
+				</div>
+				<div className={iconStyle}>
+					<Image src={mdx_icon} alt="MDX"/>
+					<p className="text-xs">MDX</p>
+				</div>
+			</span>
 		</footer>
 
 	)

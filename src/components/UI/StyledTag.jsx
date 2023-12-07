@@ -28,7 +28,7 @@ function StyledTag( {colorIndex, children} ) {
 	]
 
 	return (
-		<p className={`px-2 py-1 rounded-md ${bgColors[colorIndex % bgColors.length]} ${textColors[colorIndex % textColors.length]} text-sm leading-5 font-medium`}>{children}</p>
+		<p className={`px-2 py-1 rounded-md ${bgColors[colorIndex % bgColors.length]} ${textColors[colorIndex % textColors.length]} text-sm`}>{children}</p>
 	)
 }
 

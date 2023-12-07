@@ -1,0 +1,18 @@
+---
+category: Web Development
+title: CSS Tricks
+description: Cool tricks that I don't want to forget.
+date: "2023-12-05"
+tags:
+  - CSS
+---
+
+## Reactive modal
+Set width to `700px`. If the screen is too small, the width will be `90%`. If the screen is too big, the width will be `50%` of the screen. Useful for modals.
+
+```css
+modal {
+width: clamp(50%, 700px, 90%);
+height: min(50%, 300px);
+}
+```

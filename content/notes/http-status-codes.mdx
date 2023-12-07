@@ -1,0 +1,45 @@
+---
+category: Web Development
+title: HTTP Status Codes
+description: A reference for common HTTP status codes.
+date: 2023-10-06
+tags:
+  - HTTP
+---
+
+## 100 - 199: Info
+`100 Continue`
+Tells the client their request is partially complete.
+
+`102 Processing` Tells the client the request has been received and it's processing, but no response is available yet.
+
+## 200 - 299: Success
+`200 OK` Request has succeeded.
+
+`201 Created` Request was a success and a new resource was created.
+
+`204 No Content` Request succeeded, but there is no content to send back.
+
+## 300 - 399: Redirection
+
+`301 Moved Permanently` Permanent change in URL, the new URL is given in the response.
+
+`302 Found Temporary` change in RUL, the new URL is given in the response.
+
+`307 Temporary Redirect` Same as `302`, but the same request must be used in the following request. If `POST` was used in the first request, `POST` must be used in the second request, etc.
+
+`308 Permanent Redirect` Same as `301`, but the same request must also be used here.
+
+## 400 - 499: Client Error
+`400 Bad Request` Server won't process a request due to a client error.
+
+`401 Unauthorized` The client must authenticate itself to get the requested response.
+
+`403 Forbidden` The client's identity is known to the server, but the requested information is not authorized.
+
+`404 Not Found` Endpoint or URL doesn't exist. The server can send this instead of `403` as well to hide the existence of a resource.
+
+`429 Too Many Requests` The user has sent too many requests in a given amount of time.
+
+## 500 - 599: Sever Error
+`500 Internal Server Error` The server encountered an unknown error.

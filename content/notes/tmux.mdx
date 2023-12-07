@@ -1,0 +1,56 @@
+---
+category: Linux
+title: TMUX Cheatsheet
+description: Common TMUX operations to dominate the command line.
+date: 2023-09-28
+tags:
+  - TMUX
+  - Linux
+---
+
+<Callout>
+Beware that `C-a` is not the default prefix. It's `C-b`. I changed it to `C-a` in my `~/.tmux.conf` file.
+```bash
+# ~/.tmux.conf
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+...
+```
+</Callout>
+
+## Sessions
+- `tmux new -s <session>`:  Create a new session with a given name
+- `tmux list-sessions`:  List all sessions.
+- `C-a d`: Detach from the current session.
+- `tmux attach -t <session-name>`: Attach to an existing session.
+- `C-a $`: Rename the current session. 
+- `tmux kill-session -t <session-name>` Delete a session
+
+## Window Management
+- `C-a c`: Create a new window.
+- `C-a w`: List all windows.
+- `C-a n`: Go to the next window.
+- `C-a p`: Go to the previous window.
+- `C-a <number>`: Switch to window by number (e.g., `C-a 0` switches to the first window).
+- `C-a ,`: Rename the current window.
+- `C-a &`: Close the current window.
+- `exit`: Also closes current window
+
+## Pane Management
+- `C-a Right` Split the current pane vertically.
+- `C-a Down` Split the current pane horizontally.
+- `C-a o`: Move to the next pane.
+- `C-a ;`: Toggle to the last active pane.
+- `C-a <arrow key>`: Switch to the pane in the direction of the arrow key.
+- `C-a C-<arrow key>`: Resize pane in the direction of the arrow key.
+- `C-a q`: Show pane numbers (press number to jump to that pane).
+- `C-a x`: Close the current pane.
+- `C-a z`: Zoom in (or out) of the current pane.
+
+## Miscellaneous
+- `C-a ?`: List all keybindings (very handy when you forget something).
+- `C-a t`: Show the time.
+- `C-a [`: Enter copy mode (navigate using arrow keys/Vim bindings, press `Space` to start selection and `Enter` to copy).
+- `C-a ]`: Paste the buffer.
+- `C-a r`: Reload `tmux` configuration (assuming it's in the default location, `~/.tmux.conf`).

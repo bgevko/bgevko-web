@@ -11,12 +11,29 @@ const placeholder = '/blog/card/placeholder.png'
 import StyledTag from './StyledTag'
 import StyledTag2 from './StyledTag2'
 
-function ArticleCard( {date, title, content, tags, href } ) {
+function ArticleCard( {date, title, content, tags, href, image } ) {
+	let cardImage;
+	if (image) {
+		cardImage = 
+		<div className={`relative w-full max-w-[320px] h-[208px] hidden lg:block`}>
+			<Image 
+				className="rounded-t-lg"
+				src={image} 
+				alt="Article cover preview" 
+				fill
+				sizes="100vw"
+				style={{objectFit: 'cover'}}
+			/>
+		</div>
+	} else {
+		cardImage = <StyledVector colorIndex={Math.floor(Math.random() * 10000)} />
+	}
+
 	return (
 	<>
-		<div className="hidden flex flex-col w-full max-w-xs lg:block ">
-			<StyledVector colorIndex={Math.floor(Math.random() * 10000)} />
-			<div className="p-6 h-80 w-full flex flex-col items-center bg-white">
+		<div className="hidden flex flex-col w-full max-w-xs lg:block shadow-lg rounded-lg border-rounded">
+			{cardImage}
+			<div className="p-6 h-80 w-full flex flex-col items-center bg-white rounded-b-lg">
 
 				{/* Title and Tags */}
 				<div className="w-full mb-4 flex justify-between items-baseline">
@@ -32,7 +49,7 @@ function ArticleCard( {date, title, content, tags, href } ) {
 				{/* Content */}
 				<div className="w-full h-full max-h-[200px] flex flex-col overflow-hidden relative">
 					<Link href={href} className="text-2xl mb-4 max-w-max leading-8 font-bold text-gray-900 hover:underline">{title}</Link>
-					<p className="text-base leading-6 font-normal gext-gray-500">{content}</p>
+					<p className="text-base font-normal text-gray-500">{content}</p>
 					<div className="hidden absolute bottom-0 w-full h-16 bg-gradient-to-t sm:from-white to-transparent lg:block"></div>
 				</div>
 

@@ -2,8 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ButtonTag from './ButtonTag.jsx';
-import ButtonPrimary from './ButtonPrimary.jsx';
 import InfoTip from './InfoTip.jsx';
+
+import { ButtonCyan } from '@/components/UI/Buttons.jsx';
 
 function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, handleShowTags, handleClearTags, handleTagClick}) {
 
@@ -17,8 +18,8 @@ function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, h
 		{/* Show button and Clear button */} 
 		<div className="w-full h-11 flex flex-row border-b justify-between items-center">
 			{/* Show button */}
-			<div className="flex w-full max-w-[135px] flex-row justify-between gap-2 relative">
-				<button className="text-base text-blue-500 hover:text-blue-700 font-semibold"
+			<div className="flex w-full max-w-[120px] flex-row justify-between gap-2 relative">
+				<button className="text-sm text-blue-500 hover:text-blue-700 font-medium"
 					onClick={() => tagsVisible ? handleHideTags() : handleShowTags()}
 				>
 					{tagsVisible ? 'Hide filters' : 'Show filters'} 
@@ -29,7 +30,7 @@ function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, h
 			{/* Clear button */}
 			<AnimatePresence>
 			{ tagSet.size > 0 &&
-				<motion.button className="py-2 px-4 bg-red-400 max-h-8 rounded-md ml-auto text-base flex items-center justify-center leading-6 font-semibold text-white"
+				<motion.button className="py-2 px-4 bg-red-400 max-h-8 rounded-md ml-auto text-sm flex items-center justify-center font-medium text-white"
 					onClick={() => handleClearTags()}
 					initial={{ scale: 0 }}
 					animate={{ scale: 1 }}

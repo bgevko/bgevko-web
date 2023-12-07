@@ -1,0 +1,135 @@
+---
+category: C/C++
+title: CMake Cheatsheet
+description: CMake tips and tricks to help jumpstart a C++ project.
+date: "2023-10-06"
+tags:
+  - CMake
+  - C++
+---
+
+## Create a new build
+```bash
+# Set the minimum required version of CMake for this project.
+cmake_minimum_required(VERSION 3.2)
+
+# Define the name of the project. This name is used for organizational purposes
+# and does not determine the names of any output binaries.
+project(MyProject)
+
+# Add an executable target to the project. This command specifies that an 
+# executable named MyApp should be built from the source file main.cpp.
+# You can add more source files separated by spaces if needed.
+add_executable(MyApp main.cpp)
+
+# (Optional) If you have other source files or libraries to include, 
+# you can use commands like `target_link_libraries` or `target_include_directories`.
+```
+```Cpp
+// main.cpp:
+#include <iostream> 
+int main(){   std::cout << "Hello World!" << std::endl;   return 0; }
+```
+```Bash
+# Create a build folder
+mkdir build 
+cd build 
+cmake -S .. -B . # S and D flags represent source dir and build dir
+```
+```Bash
+# Build the project
+make # (from the build directory)
+```
+## Adding a library
+Create a new directory, `my_library` (or any name). I'll create an example library called `adder`. I'll also create two files in this directory: `adder.h` and `adder.cpp`.
+``` Cpp
+// adder.h:
+namespace mymath{ 	int add(int a, int b); 	float add(float a, float b); }
+```
+```cpp
+// adder.cpp:
+#include "adder.h" int mymath::add(int a, int b){ 	return a + b; } float mymath::add(float a, float b){ 	return a + b; }
+```
+```bash
+# CMakeLists.txt:
+cmake_minimum_required(VERSION 3.2) 
+project(MyProject) 
+add_executable(MyApp main.cpp)
+
+# Add the library directory to the include path. This is where the 
+# header file is located.
+include_directories(my_library)
+
+# Add the library. First argument is what you want to name the target,
+# and the second argument is the path to the library source files.
+add_library(Adder my_library/adder.cpp) 
+
+# Link the library to the executable. and INTERFACE. 
+target_link_libraries(MyApp PRIVATE Adder)
+```
+<Callout>
+Note that `PRIVATE` represents the visibility of the library. `PRIVATE` means that the library is only used by the target. Other options are `PUBLIC` and `INTERFACE`. `PUBLIC` means that the library is used by the target and any targets that link to this target. `INTERFACE` means that the library is used by any targets that link to this target, but not the target itself. 
+
+In our case, the target is `MyApp`, but bigger projects may have multiple targets, so the visibility options are a powerful way to control dependencies.
+</Callout>
+```cpp
+// main.cpp
+#include <iostream> 
+#include "adder.h" 
+int main()
+{     
+	int a = 1;     
+	int b = 2;     
+	std::cout << "a + b = " << mymath::add(a, b) << std::endl;     
+	return 0; 
+}
+```
+
+With this setup, we can go to the **build** directory and build the project:
+```bash
+cd build
+make
+```
+
+## Linking a compiled library
+
+The above approach works for linking a library when you have access to the source code and you want to compile the library yourself.
+However, sometimes you may not have access to the library source code. Sometimes, you only have access to the compiled library file. 
+Note that compiled libraries still need a header file to use them.
+Compiled libraries usually have these file extensions:
+
+**STATIC**: `.a`, `.lib`
+
+**SHARED**: `.so`, `.dll`, `.dylib`
+
+<Callout>
+Note that `.lib` and `.dll` are used on Windows, `.a` and `.so` are used on Linux, and `.a` and `.dylib` are used on macOS.
+</Callout>
+
+Static means that a library will be compiled into your executable. This means that the library code is "embedded" into your final application. 
+If multiple executable files use it, then the library code will be duplicated in each of them. 
+
+A shared library is not embedded into your application. Instead, it is loaded at runtime. This means that if multiple executable files use it, 
+then the library code will be loaded only once in memory. However, this also means that you need to distribute the library 
+file with your application and make sure that the library is available on the user's machine. Static libraries are usually easier to use, 
+but shared libraries are more efficient. Here's how to link a pre-compiled library:
+
+In this example, I'll use two files in the `my_library` directory:
+```bash
+libAdder.a # static library
+adder.h    # library header file
+```
+```bash
+# CMakeLists.txt
+cmake_minimum_required(VERSION 3.2) 
+project(MyProject) 
+add_executable(MyApp main.cpp) 
+include_directories(my_library) 
+target_link_libraries(MyApp PRIVATE ${CMAKE_SOURCE_DIR}/my_library/libAdder.a)
+```
+
+I'm including the header file in the `my_library` directory, then I'm calling `target_link_libraries` 
+the same way as before, but this time linking to the `a` file. Although I'm linking a static library,
+the approach is the same for the other types as well.
+
+Note that `CMAKE_SOURCE_DIR` is part of the Cmake API and it represents the root directory where `CMakeLists.txt` is located.
