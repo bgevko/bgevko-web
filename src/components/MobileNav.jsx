@@ -3,6 +3,7 @@ import React, { useState }from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { bouncyAnimation } from '@/lib/anim'
 
 // Images
 import hamburger_icon from '../../public/hamburger-icon.svg'
@@ -26,14 +27,18 @@ const MobileNav = () => {
 		setIsMenuOpen(!isMenuOpen);
 	}
 
-	const hoverStyle = {color: '#8B5CF6', scale: 1.1, originX: 0, originY: 0}
-	const tapStyle = {scale: 0.9, originX: 0, originY: 0}
+	const hoverStyle = {scale: 1.05, originX: 0, originY: 0}
+	const tapStyle = {scale: 0.97, originX: 0, originY: 0}
 	const transition = {type: 'tween', duration: 0.1}
+
+	const linkStye = 'mb-4 py-4 px-8 hover:text-gray-600 hover:bg-gray-100'
 
 	return (
 	<>
-			<MotionLink href="/" className="mr-auto py-2.5 text-2xl leading-8 font-bold text-purple-500"
-				whileHover={hoverStyle} whileTap={tapStyle} transition={transition}
+			<MotionLink href="/" className="ml-4 mr-auto py-2.5 text-lg leading-8 font-bold text-purple-500 hover:text-purple-600"
+				whileHover={bouncyAnimation.hover}
+				whileTap={bouncyAnimation.tap}
+				transition={bouncyAnimation.transition}
 				onClick={() => setIsMenuOpen(false)}
 			>
 				bGevko
@@ -61,7 +66,7 @@ const MobileNav = () => {
 		<AnimatePresence>
 		{isMenuOpen &&
 			<>
-			<motion.nav className="md:hidden absolute top-[52px] left-0 right-0 -mx-4 py-8 px-4 text-lg leading-7 font-semibold text-gray-500 flex flex-col bg-white shadow-md border z-10"
+			<motion.nav className="md:hidden absolute top-[52px] left-0 right-0 -mx-4 py-8 text-sm leading-5 font-medium text-gray-500 flex flex-col bg-white shadow-md border z-10"
 				initial={{x: '100%'}}
 				animate={{x: 0}}
 				exit={{x: '110%'}}
@@ -69,28 +74,28 @@ const MobileNav = () => {
 			>
 				<MotionLink 
 					href="/projects" 
-					className="mb-4 py-4" 
+					className={linkStye}
 					whileHover={hoverStyle} whileTap={tapStyle} transition={transition} 
 					onClick={() => setIsMenuOpen(false)}
 				>Projects</MotionLink>
 
 				<MotionLink 
 					href="/blog" 
-					className="mb-4 py-4" 
+					className={linkStye}
 					whileHover={hoverStyle} whileTap={tapStyle} transition={transition}
 					onClick={() => setIsMenuOpen(false)}
 				>Blog</MotionLink>
 
 				<MotionLink 
 					href="/notes" 
-					className="mb-4 py-4" 
+					className={linkStye}
 					whileHover={hoverStyle} whileTap={tapStyle} transition={transition}
 					onClick={() => setIsMenuOpen(false)}
 				>Notes</MotionLink>
 
 				<MotionLink 
 					href="/contact" 
-					className="mb-4 py-4" 
+					className={linkStye}
 					whileHover={hoverStyle} whileTap={tapStyle} transition={transition}
 					onClick={() => setIsMenuOpen(false)}
 				>Contact</MotionLink>

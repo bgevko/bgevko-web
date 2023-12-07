@@ -1,0 +1,125 @@
+---
+category: C/C++
+title: GCC Snippets 
+description: Reference for how to use the GCC compiler
+date: 2023-09-23
+tags:
+  - C
+  - GCC
+---
+
+## Compile a C program using c99 standard
+```bash
+gcc -std=c99 main.c -o main
+```
+
+## Compiler steps
+```bash
+# Step 1: My C to Preprocessed C
+# We'll dump the output into its own file. The preprocessor extends 
+# macros, header files, etc.
+gcc -std=c99 -E main.c > main.i
+
+# Step 2: Preprocessed to Assembly Language
+# This take output.i and create output.s
+gcc -std=c99 -S main.i 
+
+# Step 3: Assembly to Machine Code
+# This will take output.s and create output.o
+gcc --std=c99 -c main.s
+
+# Step 4: Run the linker
+# Inputs output.o and create an executable. If executable name is 
+# not specified, it'll be named a.out, otherwise, it will be named 
+# the specified output
+gcc --std=c99 -o main main.o
+```
+
+## Frequently used flags
+```bash
+-g         # Compile with debugging info for GDB
+-c         # Compiles only, without linking
+-S         # Generates assembly code
+-O3        # Optimizes as much as possible
+-o         # Specifies the name of the output file
+-Wall      # Turns on all warnings
+-llibrary  # Adds support for library when linking 
+-std=c99   # Use C99 standard
+-std=gnu99 # Use C99 standard with GNU extensions
+```
+
+## Linking files together
+```bash
+# My Directory
+.
+├── main.c
+├── source1.c
+├── source2.c
+└── sources.h
+```
+```c
+// main.c
+#include <stdio.h>
+#include "sources.h"
+
+int main(void) {
+  hello_from_source1();
+  hello_from_source2();
+  return 0;
+}
+```
+```c
+// source1.c
+#include <stdio.h>
+
+void hello_from_source1(void)
+{
+    printf("Hello from source1.c\n");
+}
+```
+```c
+// source2.c
+#include <stdio.h>
+
+void hello_from_source2(void)
+{
+    printf("Hello from source2.c\n");
+}
+```
+```c
+// sources.h
+void hello_from_source1(void);
+void hello_from_source2(void);
+```
+```bash
+# Compile all files and link them together
+gcc --std=c99 -o main main.c source1.c source2.c
+```
+```bash
+# Run the executable
+./main
+# stdout: Hello from source1.c
+# stdout: hello from source2.c
+```
+## Compiling and linking seperately
+Seperate compilation is useful when one object file source code is not changing frequently. Suppose `source1.c` and `source2.c` are not changing frequently, but `main.c` is. We can compile `source1.c` and `source2.c` once then instead of compiling them every time we make a change to `main.c`, we just link them in the final step of the compilation process.
+```bash
+# Compile source1.c and source2.c
+gcc --std=c99 -c source1.c # > source1.o
+gcc --std=c99 -c source2.c # > source2.o
+
+# When we want to compile main.c..
+gcc --std=c99 -c main.c # > main.o
+gcc --std=c99 -o main main.o source1.o source2.o # > main (executable)
+```
+## Creating a library file
+```bash
+# STATIC library from two sources, creates libUtil.a
+ar -r libSources.a source1.o source2.o
+
+# DYNAMIC library from two sources, creates libUtil.so
+gcc -shared -o libSources.so source1.o source2.o
+
+# DYNAMIC library for mac
+gcc -shared -o libSources.dylib source1.o source2.o 
+```

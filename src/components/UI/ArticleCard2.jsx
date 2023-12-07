@@ -12,7 +12,24 @@ const placeholder = '/blog/card/placeholder.png'
 // Components
 import StyledTag from './StyledTag'
 
-function ProjectCard( {date, title, content, tags, href } ) {
+function ProjectCard( {date, title, content, tags, href, image } ) {
+	let cardImage;
+	if (image) {
+		cardImage = 
+		<div className={`relative w-full max-w-[240px] h-[223px] hidden lg:block`}>
+			<Image 
+				className="rounded-md"
+				src={image} 
+				alt="Article cover preview" 
+				fill
+				sizes="100vw"
+				style={{objectFit: 'cover'}}
+			/>
+		</div>
+	} else {
+		cardImage = <StyledVector className="hidden w-full h-full min-w-[240px] max-w-[240px] max-h-[240px] lg:flex " colorIndex={0} />
+	}
+
 	return (
 	<>
 		<motion.div className="pb-4 mb-16 flex w-full border-b lg:h-60 relative"
@@ -22,7 +39,7 @@ function ProjectCard( {date, title, content, tags, href } ) {
 			transition={{ type: "spring", stiffness: 100, damping: 20 }}
 		>
 			{/* Image */}
-			<StyledVector className="hidden w-full h-full min-w-[240px] max-w-[240px] max-h-[240px] lg:flex " colorIndex={0} />
+			{cardImage}
 			{/* Content */}
 			<div className="lg:pl-4 flex flex-col w-full h-full">
 				{/* Tags and Date */}

@@ -1,12 +1,14 @@
 import React from 'react';
 
-function TextArea({ className="", label, name, placeholder}) {
+function TextArea({ className="", label, name, placeholder, required=false, disabled=false}) {
     const combinedClass = `w-full text-sm font-medium text-gray-700 ${className}`;
 
     return (
 			<label htmlFor={name} className={combinedClass}>
 				{label}
 				<textarea 
+					disabled={disabled}
+					required={required}
 					maxLength="500"
 					name={name}
 					id={name}

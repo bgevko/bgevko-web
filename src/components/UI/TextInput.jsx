@@ -1,12 +1,14 @@
 import React from 'react';
 
-function TextInput({ className="", label, type="text", name, placeholder}) {
+function TextInput({ className="", label, type="text", name, placeholder, required=false, disabled=false}) {
     const combinedClass = `w-full text-sm font-medium text-gray-700 ${className}`;
 
     return (
 			<label htmlFor={name} className={combinedClass}>
 				{label}
 				<input 
+					disabled={disabled}
+					required={required}
 					type={type}
 					name={name}
 					id={name}

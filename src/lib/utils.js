@@ -1,5 +1,7 @@
-import { ClassValue, clsx } from "clsx"
+import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+
+const path = require('path')
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
@@ -8,8 +10,9 @@ export function cn(...inputs) {
 export function formatDate(input) {
   const date = new Date(input)
   return date.toLocaleDateString("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric",
   })
 }
+
