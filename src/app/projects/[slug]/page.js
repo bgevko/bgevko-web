@@ -6,7 +6,7 @@ import Article from '@/components/UI/Article'
 import { MDXRemote } from 'next-mdx-remote'
 import 'highlight.js/styles/github.css'
 
-// export const revalidate = 86400
+export const revalidate = 86400
 
 export async function generateStaticParams() {
 	try {
