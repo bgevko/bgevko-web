@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
+// Components
 import StyledTag from '@/components/UI/StyledTag'
 import AuthorInfo from '@/components/UI/AuthorInfo'
 import { ButtonOutline, LinkButtonGhost } from '@/components/UI/Buttons'
@@ -14,11 +15,15 @@ export default function Article( {meta, content} ) {
 	const [coverLoading, setCoverLoading] = useState(false)
 	const [articleImageLoading, setArticleImageLoading] = useState(false)
 
+	// Handle undefined behavior
 	const coverImage = meta.image || null
-	const headerStyle = "mb-4 mt-16 text-3xl font-semibold text-gray-900"
-	const pStyle = "mb-4 text-lg text-gray-700"
 	const tags = meta.tags || []
 
+	// Common Styles
+	const headerStyle = "mb-4 mt-16 text-3xl font-semibold text-gray-900"
+	const pStyle = "mb-4 text-lg text-gray-700"
+
+	// Handle dynamic back link
 	let itemType;
 	if (meta.backlink === '/blog') {
 		itemType = 'posts'
@@ -28,6 +33,7 @@ export default function Article( {meta, content} ) {
 		itemType = 'notes'
 	}
 
+	// Copy article link to clipboard
 	const handleCopyLink = () => {
 		navigator.clipboard.writeText(window.location.href)
 		setLinkCopied(true)
@@ -36,7 +42,6 @@ export default function Article( {meta, content} ) {
 			setLinkCopied(false)
 		}, 10000)
 	}
-
 
   return (
     <main className="pt-4 pb-20 flex w-full flex flex-col items-center lg:pb-24">
@@ -51,6 +56,7 @@ export default function Article( {meta, content} ) {
 							))
 						}
 					</span>
+
 					{ coverImage &&
 					<>
 						<div className={`mt-8 relative w-full max-w-4xl h-[320px] md:h-[480px] ${coverLoading ? 'hidden' : ''}`}>
@@ -65,7 +71,6 @@ export default function Article( {meta, content} ) {
 							/>
 						</div>
 						{ coverLoading &&
-
 							// Loading animation
 							<motion.div className="mb-8 relative w-full h-[320px] md:h-[480px] lg:h-[640px] bg-gray-300 flex justify-center items-center"
 								animate={{ opacity: [0.5, 1, 0.5] }}

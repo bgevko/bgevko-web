@@ -160,15 +160,6 @@ const MDXcomponents = {
       {...props}
     />
   ),
-  // pre: ({ className, ...props }) => (
-  //   <pre
-  //     className={cn(
-  //       "mb-4 mt-6 overflow-x-auto rounded-lg border pl-2 py-4",
-  //       className
-  //     )}
-  //     {...props}
-  //   />
-  // ),
   code: ({ className, ...props }) => (
     <code
       className={cn(
