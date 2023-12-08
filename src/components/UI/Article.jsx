@@ -15,7 +15,6 @@ export default function Article( {meta, content} ) {
 	const [articleImageLoading, setArticleImageLoading] = useState(false)
 
 	const coverImage = meta.image || null
-	// const coverImage = null
 	const headerStyle = "mb-4 mt-16 text-3xl font-semibold text-gray-900"
 	const pStyle = "mb-4 text-lg text-gray-700"
 	const tags = meta.tags || []
@@ -52,10 +51,8 @@ export default function Article( {meta, content} ) {
 							))
 						}
 					</span>
-					{/* <Image src="/test-images/img1.png" alt="test image" width={1280} height={640}/> */}
 					{ coverImage &&
 					<>
-						{/* <div className={`mt-8 box-content px-8 relative w-full h-[320px] md:h-[480px] lg:h-[640px] ${coverLoading ? 'hidden' : ''}`}> */}
 						<div className={`mt-8 relative w-full max-w-4xl h-[320px] md:h-[480px] ${coverLoading ? 'hidden' : ''}`}>
 							<Image src={coverImage}
 								className="rounded-lg"
@@ -68,6 +65,7 @@ export default function Article( {meta, content} ) {
 							/>
 						</div>
 						{ coverLoading &&
+
 							// Loading animation
 							<motion.div className="mb-8 relative w-full h-[320px] md:h-[480px] lg:h-[640px] bg-gray-300 flex justify-center items-center"
 								animate={{ opacity: [0.5, 1, 0.5] }}
