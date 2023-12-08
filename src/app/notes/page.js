@@ -23,12 +23,14 @@ async function getMetadata() {
 function getFormattedNotes(data) {
 	const categories = new Set()
 	data.forEach(note => categories.add(note.category))
+
 	const notes = []
 	categories.forEach(category => {
 		const note = {
 			category: category,
 			notes: [],
 		}
+
 		data.forEach(item => {
 			if (item.category === category) {
 				note.notes.push({
@@ -40,6 +42,7 @@ function getFormattedNotes(data) {
 		})
 		notes.push(note)
 	})
+
 	return notes
 }
 
