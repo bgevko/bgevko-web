@@ -134,4 +134,3 @@ async function getPostSlugs(type) {
 		console.error("getAllSlugs:error: ", err)
 	}
 }
-
