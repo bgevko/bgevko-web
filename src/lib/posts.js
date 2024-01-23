@@ -10,6 +10,7 @@ import { formatDate } from '@/lib/utils'
 import { visit } from "unist-util-visit"
 
 const path = require('path')
+const db = require('./db')
 
 const autolinkOptions = {
 	properties: {
@@ -47,7 +48,11 @@ const mdxOptions = {
 }
 
 export async function getPostBySlug(slug, type) {
-	if (type != 'blog' && type != 'projects' && type != 'notes') {
+	let dbPostType;
+	if (type == 'blog') dbPostType = 'BlogPosts'
+	else if (type == 'projects') dbPostType = 'ProjectPosts'
+	else if (type == 'notes') dbPostType = 'NotesPosts'
+	else {
 		console.error("getPostBySlug:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
 		return null
 	}
@@ -57,8 +62,8 @@ export async function getPostBySlug(slug, type) {
 	}
 
 	try {
-		const fileDir = `content/${type}/${slug}.mdx`
-		const source = await fs.readFile(fileDir, 'utf8')
+		const query = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
+		const source = query[0][0].content
 
 		const { content, frontmatter } = await compileMDX({
 			source,
@@ -68,8 +73,7 @@ export async function getPostBySlug(slug, type) {
 				mdxOptions,
 			}
 		})
-		// console.log("Pre component: ", content.props.components.pre)
-		const id = slug.replace(/\.mdx?$/, '')
+		const id = slug
 		const postObj = {
 			meta: { 
 				id, 
@@ -120,17 +124,39 @@ export async function getPostsMeta(type) {
 }
 
 async function getPostSlugs(type) {
-	// Assumes that the directory is in the `content` folder
+	let dbPostType;
+	if (type == 'blog') dbPostType = 'BlogPosts'
+	else if (type == 'projects') dbPostType = 'ProjectPosts'
+	else if (type == 'notes') dbPostType = 'NotesPosts'
+	else {
+		console.error("getPostSlugs:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
+		return null
+	}
+
 	try {
-		// const fileDir = path.join(process.cwd(), 'content', dir)
-		const fileDir = `content/${type}`
-
-		const filenames = await fs.readdir(fileDir, 'utf8')
-
-		return filenames
-			.filter(path => /\.mdx?$/.test(path))
-			.map(path => path.replace(/\.mdx?$/, ''))
+		const postSlugs = await db.pool.query(`SELECT slug FROM ${dbPostType}`)
+		return postSlugs[0].map((slug) => slug.slug)
 	} catch (err) {
 		console.error("getAllSlugs:error: ", err)
+		return []
+	}
+}
+
+async function getAllPosts(type) {
+	let dbPostType;
+	if (type == 'blog') dbPostType = 'BlogPosts'
+	else if (type == 'projects') dbPostType = 'ProjectPosts'
+	else if (type == 'notes') dbPostType = 'NotesPosts'
+	else {
+		console.error("getAllPosts:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
+		return null
+	}
+
+	try {
+		const posts = await db.pool.query(`SELECT * FROM ${dbPostType}`)
+		return posts[0]
+	} catch (err) {
+		console.error("getAllPosts:error: ", err)
+		return []
 	}
 }
