@@ -13,6 +13,8 @@ export const metadata = {
 	description: 'Bogdan Gevko, software developer and computer science student at Oregon State University.',
 }
 
+export const revalidate = 60
+
 async function getMetadata(type) {
 	try {
 		const posts = await getPostsMeta(type)
