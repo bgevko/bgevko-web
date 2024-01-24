@@ -142,7 +142,7 @@ async function getPostSlugs(type) {
 	}
 }
 
-async function getAllPosts(type) {
+export async function getAllPosts(type) {
 	let dbPostType;
 	if (type == 'blog') dbPostType = 'BlogPosts'
 	else if (type == 'projects') dbPostType = 'ProjectPosts'
@@ -158,5 +158,82 @@ async function getAllPosts(type) {
 	} catch (err) {
 		console.error("getAllPosts:error: ", err)
 		return []
+	}
+}
+
+export async function addPost(post) {
+	let dbPostType;
+	if (!post || !post.type || !post.slug || !post.content) {
+		console.error("addPost:error: invalid argument. Must be an object with type, slug, and content")
+		return null
+	}
+	if (post.type == 'blog') dbPostType = 'BlogPosts'
+	else if (post.type == 'projects') dbPostType = 'ProjectPosts'
+	else if (post.type == 'notes') dbPostType = 'NotesPosts'
+	else {
+		console.error("addPost:error: invalid argument. Post.type be 'blog', 'projects', or 'notes'")
+		return null
+	}
+	try {
+		const query = await db.pool.query(`INSERT INTO ${dbPostType} (slug, content) VALUES (?, ?)`, [post.slug, post.content])
+		return query[0]
+	} catch (err) {
+		console.error("addPost:error: ", err)
+		return null
+	}
+}
+
+export async function queryPostBySlug(slug, type) {
+	let dbPostType;
+	if (type == 'blog') dbPostType = 'BlogPosts'
+	else if (type == 'projects') dbPostType = 'ProjectPosts'
+	else if (type == 'notes') dbPostType = 'NotesPosts'
+	else {
+		console.error("removePostBySlug:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
+		return null
+	}
+	try {
+		const query = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
+		return query[0]
+	} catch (err) {
+		console.error("removePostBySlug:error: ", err)
+		return null
+	}
+}
+
+export async function removePostBySlug(slug, type) {
+	let dbPostType;
+	if (type == 'blog') dbPostType = 'BlogPosts'
+	else if (type == 'projects') dbPostType = 'ProjectPosts'
+	else if (type == 'notes') dbPostType = 'NotesPosts'
+	else {
+		console.error("removePostBySlug:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
+		return null
+	}
+	try {
+		const query = await db.pool.query(`DELETE FROM ${dbPostType} WHERE slug = ?`, [slug])
+		return query[0]
+	} catch (err) {
+		console.error("removePostBySlug:error: ", err)
+		return null
+	}
+}
+
+export async function updatePostBySlug(slug, post, type) {
+	let dbPostType;
+	if (type == 'blog') dbPostType = 'BlogPosts'
+	else if (type == 'projects') dbPostType = 'ProjectPosts'
+	else if (type == 'notes') dbPostType = 'NotesPosts'
+	else {
+		console.error("updatePostBySlug:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
+		return null
+	}
+	try {
+		const query = await db.pool.query(`UPDATE ${dbPostType} SET content = ? WHERE slug = ?`, [post.content, slug])
+		// return `Query result: ${query[0]}`
+		return query[0]
+	} catch (err) {
+		console.error("updatePostBySlug:error: ", err)
+		return null
 	}
 }
