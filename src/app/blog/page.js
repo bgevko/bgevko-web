@@ -2,6 +2,7 @@ import SectionTags from '@/components/UI/SectionTags'
 import ArticlesList from '@/components/UI/ArticlesList'
 import { getPostsMeta } from '@/lib/posts'
 
+export const revalidate = 60
 export const metadata = {
 	title: "Bogdan's Blog",
 	description: "Bogdan Gevko's blog. I write about software development and other technical topics.",

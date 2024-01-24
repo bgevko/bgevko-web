@@ -4,6 +4,7 @@ import NoteLink from '@/components/UI/NoteLink.jsx'
 import NotesList from '@/components/UI/NotesList.jsx'
 import { getPostsMeta } from '@/lib/posts'
 
+export const revalidate = 60
 export const metadata = {
 	title: "Bogdan's Notes",
 	description: "Bogdan's Gevko's technical notes and snippets.",
