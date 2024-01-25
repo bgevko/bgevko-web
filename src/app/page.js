@@ -61,7 +61,7 @@ export default async function Home() {
 			<section className="px-4 py-24 w-screen flex flex-col border-t -mx-4">
 				<header className="mb-4 w-full max-w-prose lg:max-w-5xl mx-auto flex justify-between items-center">
 					<p className="text-base leading-8 font-medium text-gray-400">Featured Projects</p>
-					<LinkButtonCyan href="/blog">View all</LinkButtonCyan>
+					<LinkButtonCyan href="/projects">View all</LinkButtonCyan>
 				</header>
 				<article className="w-full mx-auto flex flex-col max-w-prose lg:max-w-5xl">
 					{projectCards}
