@@ -16,6 +16,11 @@ export async function GET(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+	const token = request.headers.get('Authorization')
+	if (token === null || token.split(' ')[1] !== process.env.SECRET_KEY) {
+		return new Response('Unauthorized', { status: 401 })
+	}
+
 	const type = params.content
 	const slug = params.slug
 	try {
@@ -27,6 +32,11 @@ export async function DELETE(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+	const token = request.headers.get('Authorization')
+	if (token === null || token.split(' ')[1] !== process.env.SECRET_KEY) {
+		return new Response('Unauthorized', { status: 401 })
+	}
+
 	const type = params.content
 	const slug = params.slug
 	const postObj = await request.json()

@@ -22,6 +22,10 @@ export async function GET(request, { params }) {
 }
 
 export async function POST(request) {
+	const token = request.headers.get('Authorization')
+	if (token === null || token.split(' ')[1] !== process.env.SECRET_KEY) {
+		return new Response('Unauthorized', { status: 401 })
+	}
 	const postObj = await request.json()
 	try {
 		const post = await addPost(postObj)
