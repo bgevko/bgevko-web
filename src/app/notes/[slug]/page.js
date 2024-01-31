@@ -4,10 +4,10 @@ import { getTableOfContents } from '@/lib/toc'
 import { getCodeContent } from '@/lib/codecopy'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Note from '@/components/UI/Note'
+import Note from '@/ui/Note'
 import { MDXRemote } from 'next-mdx-remote'
 import 'highlight.js/styles/github.css'
-import TableOfContents from '@/components/UI/TableOfContents'
+import TableOfContents from '@/ui/TableOfContents'
 
 export const revalidate = 60
 

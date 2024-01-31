@@ -1,10 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
-import StyledTag from '@/components/UI/StyledTag'
+import StyledTag from '@/ui/StyledTag'
 import Image from 'next/image'
 import {motion} from 'framer-motion'
 
-import { ButtonCyan } from '@/components/UI/Buttons'
+import { ButtonCyan } from '@/ui/Buttons'
 
 export const metadata = {
 	title: "Assignment 11: Integration",

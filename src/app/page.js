@@ -1,12 +1,12 @@
 import Image from 'next/image'
-import StyledLink from '@/components/UI/StyledLink'
-import ProfilePhoto from '@/components/UI/ProfilePhoto'
-import ArticleCard from '@/components/UI/ArticleCard'
-import ProjectCard from '@/components/UI/ArticleCard2'
+import StyledLink from '@/ui/StyledLink'
+import ProfilePhoto from '@/ui/ProfilePhoto'
+import ArticleCard from '@/ui/ArticleCard'
+import ProjectCard from '@/ui/ArticleCard2'
 import Socials from '@/components/Socials'
 import { getPostsMeta } from '@/lib/posts'
 
-import { LinkButtonRed, LinkButtonCyan } from '@/components/UI/Buttons'
+import { LinkButtonRed, LinkButtonCyan } from '@/ui/Buttons'
 
 export const metadata = {
 	title: 'Bogdan Gevko',

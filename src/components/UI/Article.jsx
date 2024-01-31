@@ -5,9 +5,9 @@ import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 // Components
-import StyledTag from '@/components/UI/StyledTag'
-import AuthorInfo from '@/components/UI/AuthorInfo'
-import { ButtonOutline, LinkButtonGhost } from '@/components/UI/Buttons'
+import StyledTag from '@/ui/StyledTag'
+import AuthorInfo from '@/ui/AuthorInfo'
+import { ButtonOutline, LinkButtonGhost } from '@/ui/Buttons'
 import Lucide from '@/components/LucideIcons'
 
 export default function Article( {meta, content} ) {

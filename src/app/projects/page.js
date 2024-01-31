@@ -1,5 +1,5 @@
-import SectionTags from '@/components/UI/SectionTags'
-import ProjectsList from '@/components/UI/ArticlesList'
+import SectionTags from '@/ui/SectionTags'
+import ProjectsList from '@/ui/ArticlesList'
 import { getPostsMeta } from '@/lib/posts'
 
 export const revalidate = 60

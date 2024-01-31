@@ -2,7 +2,7 @@ import formatDate from '@/lib/utils'
 import { getPostsMeta, getPostBySlug } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Article from '@/components/UI/Article'
+import Article from '@/ui/Article'
 import { MDXRemote } from 'next-mdx-remote'
 import 'highlight.js/styles/github.css'
 

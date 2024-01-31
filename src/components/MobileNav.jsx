@@ -10,7 +10,7 @@ import hamburger_icon from '../../public/hamburger-icon.svg'
 import hamburger_close_icon from '../../public/hamburger-close-icon.svg'
 
 // Components
-import Scrim from './UI/Scrim.jsx'
+import Scrim from '@/ui/Scrim.jsx'
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef((props, ref) => (

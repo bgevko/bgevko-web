@@ -1,22 +1,18 @@
-import React from 'react';
+import * as React from "react"
 
-function TextArea({ className="", label, name, placeholder, required=false, disabled=false}) {
-    const combinedClass = `w-full text-sm font-medium text-gray-700 ${className}`;
+import { cn } from "@/lib/utils"
 
-    return (
-			<label htmlFor={name} className={combinedClass}>
-				{label}
-				<textarea 
-					disabled={disabled}
-					required={required}
-					maxLength="500"
-					name={name}
-					id={name}
-					className="mt-1.5 py-[10px] px-[14px] h-[270px] resize-none flex items-center w-full rounded-lg border border-gray-300 placeholder-gray-500"
-					placeholder={placeholder}
-				></textarea>
-			</label>
-		);
-}
+const Textarea = React.forwardRef(({ className, ...props }, ref) => {
+  return (
+    (<textarea
+      className={cn(
+        "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      ref={ref}
+      {...props} />)
+  );
+})
+Textarea.displayName = "Textarea"
 
-export default TextArea;
+export { Textarea }

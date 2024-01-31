@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import CopyCodeButton from '@/components/UI/CopyCodeButton';
+import CopyCodeButton from '@/ui/CopyCodeButton';
 
 import { cn } from "@/lib/utils";
 import { Callout } from "@/components/Callout";

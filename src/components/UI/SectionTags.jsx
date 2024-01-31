@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ButtonTag from './ButtonTag.jsx';
 import InfoTip from './InfoTip.jsx';
 
-import { ButtonCyan } from '@/components/UI/Buttons.jsx';
+import { ButtonCyan } from '@/ui/Buttons.jsx';
 
 function SectionTags({className="", tags, tagSet, tagsVisible, handleHideTags, handleShowTags, handleClearTags, handleTagClick}) {
 

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {motion} from 'framer-motion'
 
 // Components
-import { LinkButtonCyan } from '@/components/UI/Buttons'
+import { LinkButtonCyan } from '@/ui/Buttons'
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef((props, ref) => (

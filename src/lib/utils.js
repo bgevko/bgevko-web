@@ -1,8 +1,6 @@
 import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-const path = require('path')
-
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
@@ -15,4 +13,3 @@ export function formatDate(input) {
     year: "numeric",
   })
 }
-

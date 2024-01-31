@@ -1,7 +1,7 @@
-import SectionTags from '@/components/UI/SectionTags'
-import Category from '@/components/UI/NoteCategory.jsx'
-import NoteLink from '@/components/UI/NoteLink.jsx'
-import NotesList from '@/components/UI/NotesList.jsx'
+import SectionTags from '@/ui/SectionTags'
+import Category from '@/ui/NoteCategory.jsx'
+import NoteLink from '@/ui/NoteLink.jsx'
+import NotesList from '@/ui/NotesList.jsx'
 import { getPostsMeta } from '@/lib/posts'
 
 export const revalidate = 60

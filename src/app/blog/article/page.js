@@ -1,4 +1,4 @@
-import Article from '@/components/UI/ArticleExample'
+import Article from '@/ui/ArticleExample'
 
 export const metadata = {
 	title: "Assignment 11: Integration",

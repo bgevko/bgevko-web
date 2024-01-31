@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useRef } from 'react'
 import Lucide from '@/components/LucideIcons'
-import { ButtonOutline } from '@/components/UI/Buttons'
+import { ButtonOutline } from '@/ui/Buttons'
 import { motion } from 'framer-motion'
 import { bouncyAnimation } from '@/lib/anim'
 

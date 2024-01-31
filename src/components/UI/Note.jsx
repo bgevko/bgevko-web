@@ -1,8 +1,8 @@
 'use client'
 import Lucide from '@/components/LucideIcons'
-import StyledTag from '@/components/UI/StyledTag2'
-import { LinkButtonGhost } from '@/components/UI/Buttons'
-import AuthorInfo from '@/components/UI/AuthorInfo'
+import StyledTag from '@/ui/StyledTag2'
+import { LinkButtonGhost } from '@/ui/Buttons'
+import AuthorInfo from '@/ui/AuthorInfo'
 
 export default function Note( {meta, content } ) {
 	const tags = meta.tags || []

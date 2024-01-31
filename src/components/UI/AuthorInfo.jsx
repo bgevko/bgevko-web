@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Socials from '@/components/Socials'
-import { ButtonOutline, LinkButtonGhost } from '@/components/UI/Buttons'
+import { ButtonOutline, LinkButtonGhost } from '@/ui/Buttons'
 import Lucide from '@/components/LucideIcons'
 
 const profile_photo = '/profile-photo.webp'
