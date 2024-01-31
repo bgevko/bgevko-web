@@ -40,6 +40,7 @@ const ContactForm = () => {
 	const { toast } = useToast()
 	const form = useForm({
 		resolver: zodResolver(formSchema),
+		mode: 'onBlur',
 		defaultValues: {
 			firstName: '',
 			lastName: '',
@@ -69,6 +70,24 @@ const ContactForm = () => {
 			})
 			return
 		}
+
+		window.scrollTo(0, 0)
+
+		// reset focus
+		var viewportmeta = document.querySelector('meta[name="viewport"]');
+     if (viewportmeta) {
+        viewportmeta.setAttribute('content', 'width=device-width, maximum-scale=1.0, initial-scale=1.0');
+     }
+
+		// reset zoom
+		if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+			var viewportmeta = document.querySelector('meta[name="viewport"]');
+			if (viewportmeta) {
+				viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0');
+				viewportmeta.setAttribute('content', 'width=device-width, minimum-scale=1.0, initial-scale=1.0');
+			}
+		}
+
 		toast({
 			title: 'Message Sent.',
 			description: 'Check your email for a confirmation.',
