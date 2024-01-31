@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/ui/form"
 import { Input } from "@/ui/input"
-import { Textarea } from "@/ui/textarea"
+import { Textarea } from "@/ui/TextArea"
 import { useToast } from "@/ui/use-toast"
 
 const formSchema = z.object({	
