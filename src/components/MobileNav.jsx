@@ -35,7 +35,7 @@ const MobileNav = () => {
 
 	return (
 	<>
-			<MotionLink href="/" className="ml-4 mr-auto py-2.5 text-lg leading-8 font-bold text-purple-500 hover:text-purple-600"
+			<MotionLink href="/" className="mr-auto py-2.5 text-lg leading-8 font-bold text-purple-500 hover:text-purple-600"
 				whileHover={bouncyAnimation.hover}
 				whileTap={bouncyAnimation.tap}
 				transition={bouncyAnimation.transition}

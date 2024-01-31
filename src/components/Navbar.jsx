@@ -26,7 +26,7 @@ const Navbar = () => {
 	const linkStyle = 'hidden md:block ml-4 p-2.5 hover:text-gray-600 antialiased hover:text-gray-600'
 
 	return (
-		<nav className="w-screen box-content self-center container h-full text-sm leading-7 font-medium text-gray-500 antialiased flex items-center">
+		<nav className="text-sm font-medium text-gray-500 antialiased">
 			<div className="relative flex w-full mx-auto max-w-5xl">
 			<MobileNav />
 				<MotionLink href="/projects" className={`${linkStyle} ${path === '/projects' ? 'text-red-500' : ''}`}
