@@ -1,6 +1,5 @@
 import { Inter } from 'next/font/google'
 import './globals.scss'
-import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { Toaster } from "@/ui/toaster"
 
@@ -23,7 +22,6 @@ export default function RootLayout({ children }) {
 				{children}
 				<Footer />
 				<Toaster />
-				<GoogleAnalytics gaID="G-5S9WPLXTGD" />
 			</body>
     </html>
   )
