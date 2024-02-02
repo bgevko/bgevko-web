@@ -20,7 +20,11 @@ async function getMetadata() {
 }
 
 export default async function Blog() {
-	const data = await getMetadata()
+	const devMode = process.env.NODE_ENV === 'development'
+	let data = await getMetadata()
+	if (devMode === false) {
+		data = data.filter((post) => post?.draft !== true)
+	}
   return (
     <main className="pt-4 pb-20 flex w-full flex-col lg:pb-24">
 			<ArticlesList articles={data} />

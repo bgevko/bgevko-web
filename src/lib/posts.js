@@ -86,6 +86,7 @@ export async function getPostBySlug(slug, type) {
 				href: `/${type}/${slug}`,
 				backlink: `/${type}`,
 				featured: frontmatter.featured ? true : false,
+				draft: frontmatter.draft ? true : false,
 			},
 			content,
 			raw: source,
