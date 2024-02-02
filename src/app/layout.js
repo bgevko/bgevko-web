@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
 			<head>
 				<PlausibleProvider 
 					domain="bgevko.com" 
-					customDomain="https://analytics.bgevko.com:8000"
+					customDomain="https://analytics.bgevko.com"
 			/>
 			</head>
       <body className={`${inter.className} px-4 w-screen, flex flex-col`}>
