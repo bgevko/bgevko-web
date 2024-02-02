@@ -22,8 +22,6 @@ export default function RootLayout({ children }) {
 				<PlausibleProvider 
 					domain="bgevko.com" 
 					customDomain="https://plausible.bgevko.com"
-					selfHosted
-					trackLocalhost
 			/>
 			</head>
       <body className={`${inter.className} px-4 w-screen, flex flex-col`}>
