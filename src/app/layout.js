@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import './globals.scss'
+import PlausibleProvider from 'next-plausible'
 
 import { Toaster } from "@/ui/toaster"
 
@@ -17,6 +18,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+			<head>
+				<PlausibleProvider 
+					domain="bgevko.com" 
+					customDomain="https://plausible.bgevko.com"
+					selfHosted
+					trackLocalhost
+			/>
+			</head>
       <body className={`${inter.className} px-4 w-screen, flex flex-col`}>
 				<Navbar />
 				{children}

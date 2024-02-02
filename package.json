@@ -29,6 +29,7 @@
 		"mysql2": "^3.8.0",
 		"next": "^14.1.0",
 		"next-mdx-remote": "^4.4.1",
+		"next-plausible": "^3.12.0",
 		"nodemailer": "^6.9.8",
 		"react": "^18",
 		"react-dom": "^18",
