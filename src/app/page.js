@@ -3,6 +3,7 @@ import StyledLink from '@/ui/StyledLink'
 import ProfilePhoto from '@/ui/ProfilePhoto'
 import ArticleCard from '@/ui/ArticleCard'
 import ProjectCard from '@/ui/ArticleCard2'
+import ActivityCard from '@/components/ActivityCard'
 import Socials from '@/components/Socials'
 import { getPostsMeta } from '@/lib/posts'
 
@@ -58,14 +59,41 @@ export default async function Home() {
 					</span>
 				</div>
 			</header>
-			<section className="px-4 py-24 w-screen flex flex-col border-t -mx-4">
+			<section className="px-4 py-24 w-full flex flex-col border-t">
 				<header className="mb-4 w-full max-w-prose lg:max-w-5xl mx-auto flex justify-between items-center">
-					<p className="text-base leading-8 font-medium text-gray-400">Featured Projects</p>
+					<p className="text-base leading-8 text-gray-500">Featured Projects</p>
 					<LinkButtonCyan href="/projects">View all</LinkButtonCyan>
 				</header>
 				<article className="w-full mx-auto flex flex-col max-w-prose lg:max-w-5xl">
 					{projectCards}
 				</article>
+			</section>
+			{/* <section className="px-4 py-16 w-full gap-4 lg:max-w-5xl sm:mx-auto sm:rounded-lg flex flex-col items-center bg-gray-100"> */}
+			<section className="-mx-4 px-4 py-16 gap-4 flex flex-col items-center border-t border-b border-slate-200">
+				<p className="text-base text-gray-500">Recent Activity</p>
+				<div className="w-full flex flex-col gap-4">
+					<ActivityCard
+						date="03 Feb"
+						description="CLI Tool for Boilerplate Fetching"
+						href="/projects/boilerplate-tool"
+						tagType="update"
+					/>
+					<ActivityCard
+						date="03 Feb"
+						description="Recent activity is now shown on the home page."
+						tagType="feature"
+					/>
+					<ActivityCard
+						date="02 Feb"
+						description="Self-hosting Plausible Analytics with Next.js 13+"
+						href="/blog/self-hosting-plausible"
+						tagType="article"
+					/>
+				</div>
+				<button className="px-4 py-2 mt-4 text-sm text-slate-400 border border-slate-400 rounded-md 
+													 hover:bg-slate-50 hover:text-slate-500 hover:border-slate-500 transition-colors duration-100">
+					Show More
+				</button>
 			</section>
 		</main>
   )
