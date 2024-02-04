@@ -77,7 +77,8 @@ export async function getPostBySlug(slug, type) {
 		const postObj = {
 			meta: { 
 				id, 
-				date: frontmatter.date !== undefined ? formatDate(frontmatter.date) : null,
+				date: formatDate(frontmatter.date),
+				dateUpdated: formatDate(query[0][0].DateUpdated),
 				category: frontmatter.category || "General",
 				title: frontmatter.title, 
 				description: frontmatter.description,
@@ -176,8 +177,9 @@ export async function addPost(post) {
 		return null
 	}
 	try {
-		const query = await db.pool.query(`INSERT INTO ${dbPostType} (slug, content) VALUES (?, ?)`, [post.slug, post.content])
-		return query[0]
+		const query = await db.pool.query(`INSERT INTO ${dbPostType} (slug, content, title) VALUES (?, ?, ?)`, [post.slug, post.content, post.title])
+		const newPost = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [post.slug])
+		return newPost[0][0]
 	} catch (err) {
 		console.error("addPost:error: ", err)
 		return null
@@ -190,14 +192,14 @@ export async function queryPostBySlug(slug, type) {
 	else if (type == 'projects') dbPostType = 'ProjectPosts'
 	else if (type == 'notes') dbPostType = 'NotesPosts'
 	else {
-		console.error("removePostBySlug:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
+		console.error("queryPostBySlug:error: invalid argument. Must be 'blog', 'projects', or 'notes'")
 		return null
 	}
 	try {
 		const query = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
 		return query[0]
 	} catch (err) {
-		console.error("removePostBySlug:error: ", err)
+		console.error("queryPostBySlug:error: ", err)
 		return null
 	}
 }
@@ -212,8 +214,9 @@ export async function removePostBySlug(slug, type) {
 		return null
 	}
 	try {
+		const deletedItem = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
 		const query = await db.pool.query(`DELETE FROM ${dbPostType} WHERE slug = ?`, [slug])
-		return query[0]
+		return deletedItem[0][0]
 	} catch (err) {
 		console.error("removePostBySlug:error: ", err)
 		return null
@@ -230,9 +233,15 @@ export async function updatePostBySlug(slug, post, type) {
 		return null
 	}
 	try {
-		const query = await db.pool.query(`UPDATE ${dbPostType} SET content = ? WHERE slug = ?`, [post.content, slug])
-		// return `Query result: ${query[0]}`
-		return query[0]
+		const query = await db.pool.query
+		(
+			`UPDATE ${dbPostType}
+			SET content = ?, title = ?
+			WHERE slug = ?`,
+			[post.content, post.title, slug]
+		)
+		const updatedItem = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
+		return updatedItem[0][0]
 	} catch (err) {
 		console.error("updatePostBySlug:error: ", err)
 		return null

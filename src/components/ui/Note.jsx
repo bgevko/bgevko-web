@@ -15,11 +15,12 @@ export default function Note( {meta, content } ) {
 	} else if (meta.backlink === '/notes') {
 		itemType = 'notes'
 	}
+	const dateInfo = meta.dateUpdated ? `Updated ${meta.dateUpdated}` : `Published ${meta.date}`
 	return (
 			<div className="flex flex-col w-full max-w-prose justify-center">
 				<section className="w-full w-full flex flex-col items-center mb-16">
 					<header className="flex w-full pt-8 pb-4 mb-8 flex-col gap-4">
-						<p className="text-sm min-w-max max-w-prose text-gray-400"> Published {meta.date} </p>
+						<p className="text-sm min-w-max max-w-prose text-gray-400">{dateInfo}</p>
 						<h1 className="text-5xl font-bold text-gray-900" style={{ textWrap: 'balance' }}> {meta.title} </h1>
 						<p className="text-xl text-gray-500 border-b pb-2 mb-1">{meta.description} </p>
 						<span className="flex gap-1 flex-wrap">

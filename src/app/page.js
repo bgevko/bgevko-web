@@ -27,8 +27,20 @@ async function getMetadata(type) {
 	}
 }
 
+async function getActivityLog() {
+	try {
+		const log = await fetch('/api/log')
+		if (!log) return []
+		return log
+	} catch (err) {
+		console.log("getActivityLogs:error: ", err)
+		return []
+	}
+}
+
 export default async function Home() {
 	const projectsData = await getMetadata('projects')
+	const activityData = await getActivityLog()
 
 	const projectCards = projectsData.map((post, index) => {
 		return (
@@ -41,6 +53,12 @@ export default async function Home() {
 				href={post.href}
 				image={post.image}
 			/>
+		)
+	})
+
+	const activityCards = activityData.map((entry, index) => {
+		return (
+			<ActivityCard key={index} entry={entry} />
 		)
 	})
 
@@ -72,23 +90,7 @@ export default async function Home() {
 			<section className="-mx-4 px-4 py-16 gap-4 flex flex-col items-center border-t border-b border-slate-200">
 				<p className="text-base text-gray-500">Recent Activity</p>
 				<div className="w-full flex flex-col gap-4">
-					<ActivityCard
-						date="03 Feb"
-						description="CLI Tool for Boilerplate Fetching"
-						href="/projects/boilerplate-tool"
-						tagType="update"
-					/>
-					<ActivityCard
-						date="03 Feb"
-						description="Recent activity is now shown on the home page."
-						tagType="feature"
-					/>
-					<ActivityCard
-						date="02 Feb"
-						description="Self-hosting Plausible Analytics with Next.js 13+"
-						href="/blog/self-hosting-plausible"
-						tagType="article"
-					/>
+					{/* {activityCards} */}
 				</div>
 				<button className="px-4 py-2 mt-4 text-sm text-slate-400 border border-slate-400 rounded-md 
 													 hover:bg-slate-50 hover:text-slate-500 hover:border-slate-500 transition-colors duration-100">
