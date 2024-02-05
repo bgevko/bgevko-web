@@ -55,7 +55,7 @@ export async function PUT(request, { params }) {
 		const post = await updatePostBySlug(slug, postObj, type)
 		
 		// Don't add a log if the post is a draft
-		if (oldPost.postObj.draft === 1) {
+		if (postObj.draft === 1) {
 			return NextResponse.json({ message: 'Post updated', post: post })
 		}
 
