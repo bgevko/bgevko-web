@@ -11,7 +11,6 @@ export const metadata = {
 async function getMetadata() {
 	try {
 		const posts = await getPostsMeta('blog')
-		console.log("posts: ", posts)
 		if (!posts) return []
 		return posts
 	} catch (err) {
@@ -24,7 +23,7 @@ export default async function Blog() {
 	const devMode = process.env.NODE_ENV === 'development'
 	let data = await getMetadata()
 	if (devMode === false) {
-		data = data.filter((post) => post?.draft !== true)
+		data = data.filter((post) => post?.draft !== 1)
 	}
   return (
     <main className="pt-4 pb-20 flex w-full flex-col lg:pb-24">

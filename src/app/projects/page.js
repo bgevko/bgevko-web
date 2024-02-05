@@ -13,7 +13,6 @@ async function getMetadata() {
 	try {
 		const posts = await getPostsMeta('projects')
 		if (!posts) return []
-		return posts
 	} catch (err) {
 		console.log("getMetadata:error: ", err)
 		return []
