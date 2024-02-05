@@ -30,11 +30,11 @@ const ArticlesList = ({articles}) => {
 			<article className="min-h-[600px] transition mt-16 w-full flex flex-col">
 				<AnimatePresence>
 					{filterSet.size == 0 &&
-						articles.map((article, index) => (
+						articles?.map((article, index) => (
 							<ArticleCard key={index} article={article}/>))
 					}
 					{filterSet.size > 0 &&
-						filteredItems.map((article, index) => (
+						filteredItems?.map((article, index) => (
 							<ArticleCard key={index} article={article}/>
 						))
 					}
