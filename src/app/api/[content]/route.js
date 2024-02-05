@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { useSearchParams } from 'next/navigation'
 import { getAllPosts, addPost, removePostBySlug } from '@/lib/posts'
+import { addLog } from '@/lib/log'
 
 export const revalidate = 60
 
@@ -26,10 +27,24 @@ export async function POST(request) {
 	if (token === null || token.split(' ')[1] !== process.env.SECRET_KEY) {
 		return new Response('Unauthorized', { status: 401 })
 	}
-	const postObj = await request.json()
+	const postObj = await request.json() 
+	const type = postObj.type
 	try {
 		const post = await addPost(postObj)
-		return NextResponse.json(post)
+		if (post.draft === 1) {
+			return NextResponse.json({ message: 'Post added successfully', post })
+		}
+		const logObj = {
+			ActivityType: postObj.type,
+			ActionType: 'added',
+			Description: postObj.title,
+			BlogPostID: type === 'blog' ? post.postID : null,
+			ProjectPostID: type === 'projects' ? post.postID : null,
+			NotesPostID: type === 'notes' ? post.postID : null,
+			URL: `/${type}/${post.slug}`
+		}
+		const log = await addLog(logObj)
+		return NextResponse.json({ message: 'Post added successfully', post, log })
 	} catch (error) {
 		return NextResponse.json(error)
 	}

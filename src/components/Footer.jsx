@@ -11,7 +11,7 @@ import mdx_icon from '../../public/mdx-icon.svg'
 const Footer = () => {
 	const iconStyle = "flex flex-col justify-center items-center text-gray-500"
 	return (
-		<footer className="px-8 py-12 mt-auto w-full flex flex-col justify-center items-center">
+		<footer className="px-8 py-12 mx-auto mt-auto w-full max-w-5xl flex flex-col justify-center items-center">
 			<p className="mb-4 text-sm text-gray-500">Powered by</p>
 			<span className="gap-8 flex flex-wrap justify-center items-center">
 				<div className={iconStyle}>

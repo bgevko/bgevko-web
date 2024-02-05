@@ -1,6 +1,6 @@
 import React from 'react';
 
-function StyledTag( {colorIndex, children} ) {
+function StyledTag( {colorIndex, children, className=''} ) {
 	const bgColors = [
 		'bg-cyan-100',
 		'bg-teal-100',
@@ -28,7 +28,11 @@ function StyledTag( {colorIndex, children} ) {
 	]
 
 	return (
-		<p className={`px-2 py-1 rounded-md ${bgColors[colorIndex % bgColors.length]} ${textColors[colorIndex % textColors.length]} text-sm`}>{children}</p>
+		<p className={`px-2 py-1 rounded-md 
+			${bgColors[colorIndex % bgColors.length]} 
+			${textColors[colorIndex % textColors.length]} 
+			text-sm ${className}`
+		}>{children}</p>
 	)
 }
 

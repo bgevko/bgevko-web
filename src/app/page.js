@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import StyledLink from '@/ui/StyledLink'
 import ProfilePhoto from '@/ui/ProfilePhoto'
-import ArticleCard from '@/ui/ArticleCard'
 import ProjectCard from '@/ui/ArticleCard2'
+import ActivityList from '@/components/ActivityList'
 import Socials from '@/components/Socials'
 import { getPostsMeta } from '@/lib/posts'
+import { getAllLogs } from '@/lib/log'
 
 import { LinkButtonRed, LinkButtonCyan } from '@/ui/Buttons'
 
@@ -26,20 +27,25 @@ async function getMetadata(type) {
 	}
 }
 
+async function getActivityLog(number=null) {
+	try {
+		const log = await getAllLogs()
+		if (!log) return []
+		if (number && log.length > number) return log.slice(0, number)
+		return log
+	} catch (err) {
+		console.log("getActivityLogs:error: ", err)
+		return []
+	}
+}
+
 export default async function Home() {
 	const projectsData = await getMetadata('projects')
+	const activityLogs = await getActivityLog(25)
 
 	const projectCards = projectsData.map((post, index) => {
 		return (
-			<ProjectCard
-				key={index}
-				date={post.date}
-				title={post.title}
-				content={post.description}
-				tags={post.tags}
-				href={post.href}
-				image={post.image}
-			/>
+			<ProjectCard key={index} article={post}/>
 		)
 	})
 
@@ -58,15 +64,16 @@ export default async function Home() {
 					</span>
 				</div>
 			</header>
-			<section className="px-4 py-24 w-screen flex flex-col border-t -mx-4">
+			<section className="px-4 py-24 w-full flex flex-col border-t">
 				<header className="mb-4 w-full max-w-prose lg:max-w-5xl mx-auto flex justify-between items-center">
-					<p className="text-base leading-8 font-medium text-gray-400">Featured Projects</p>
+					<p className="text-base leading-8 text-gray-500">Featured Projects</p>
 					<LinkButtonCyan href="/projects">View all</LinkButtonCyan>
 				</header>
 				<article className="w-full mx-auto flex flex-col max-w-prose lg:max-w-5xl">
 					{projectCards}
 				</article>
 			</section>
+			{activityLogs.length > 0 && <ActivityList activityLogs={activityLogs} />}
 		</main>
   )
 }

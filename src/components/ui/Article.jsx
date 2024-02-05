@@ -43,11 +43,16 @@ export default function Article( {meta, content} ) {
 		}, 10000)
 	}
 
+	// If no updated date, the p will say "Published" and will use meta.date, otherwise, it will say "Updated" and use meta.dateUpdated
+	const dateInfo = meta.dateUpdated ? `Updated ${meta.dateUpdated}` : `Published ${meta.date}`
+	const draftMessage = meta.draft === 1 ? (<StyledTag colorIndex={3} className="mb-8">DRAFT</StyledTag>) : null
+
   return (
     <main className="pt-4 pb-20 flex w-full flex flex-col items-center lg:pb-24">
 			<section className="w-full flex flex-col items-center mb-16">
 				<header className={`flex box-content py-8 mb-8 md:px-8 lg:py-16 lg:mb-16 w-full flex-col items-center ${!coverImage && 'border-b'}`}>
-					<p className="mb-8 text-sm max-w-prose text-gray-400"> Published {meta.date} </p>
+					<p className="mb-8 text-sm max-w-prose text-gray-400">{dateInfo}</p>
+					{draftMessage}
 					<h1 className="mb-8 text-3xl md:text-5xl max-w-prose font-bold text-center text-gray-900" style={{ textWrap: 'balance' }}> {meta.title} </h1>
 					<p className="mb-8 text-base md:text-lg max-w-prose text-gray-500 text-center" style={{ textWrap: 'balance' }}> {meta.description} </p>
 					<span className="flex max-w-prose w-full gap-2 flex-wrap justify-center">

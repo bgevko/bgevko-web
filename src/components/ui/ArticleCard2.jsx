@@ -12,14 +12,14 @@ const placeholder = '/blog/card/placeholder.png'
 // Components
 import StyledTag from './StyledTag'
 
-function ProjectCard( {date, title, content, tags, href, image } ) {
+function ProjectCard( { article } ) {
 	let cardImage;
-	if (image) {
+	if (article.image) {
 		cardImage = 
 		<div className={`relative w-full max-w-[240px] h-[223px] hidden lg:block`}>
 			<Image 
 				className="rounded-md"
-				src={image} 
+				src={article.image} 
 				alt="Article cover preview" 
 				fill
 				sizes="100vw"
@@ -46,21 +46,21 @@ function ProjectCard( {date, title, content, tags, href, image } ) {
 				<div className="mb-2 w-full flex flex-row justify-between items-top">
 					{/* Tags */}
 					<div className="mb-2 flex w-full flex-row gap-2 flex-wrap">
-						{tags.map((tag, index) => (
+						{article.tags.map((tag, index) => (
 							<StyledTag key={index} colorIndex={index}>{tag}</StyledTag>
 						))}
 					</div>
 					{/* Date */}
-					<p className="min-w-max ml-4 text-sm leading-5 font-normal text-gray-400">{date}</p>
+					<p className="min-w-max ml-4 text-sm leading-5 font-normal text-gray-400">{article.date}</p>
 				</div>
 				{/* Title and text*/}
 				<div className="flex flex-col h-full lg:max-h-[150px] relative">
-					<Link href={href} className="mb-2 max-w-max text-2xl leading-8 font-bold text-gray-900 hover:underline">{title}</Link>
-					<p className="text-base leading-6 font-normal text-gray-500 overflow-hidden">{content}</p>
+					<Link href={article.href} className="mb-2 max-w-max text-2xl leading-8 font-bold text-gray-900 hover:underline">{article.title}</Link>
+					<p className="text-base leading-6 font-normal text-gray-500 overflow-hidden">{article.description}</p>
 					<div className="hidden absolute bottom-0 w-full h-8 bg-gradient-to-t sm:from-white to-transparent lg:block"></div>
 				</div>
 				{/* Link */}
-				<StyledLink className="ml-auto mt-auto" href={href}>View Full</StyledLink>
+				<StyledLink className="ml-auto mt-auto" href={article.href}>View Full</StyledLink>
 			</div>
 		</motion.div>
 	</>
