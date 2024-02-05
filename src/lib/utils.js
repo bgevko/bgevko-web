@@ -14,3 +14,12 @@ export function formatDate(input) {
     year: "numeric",
   })
 }
+
+export function formatDateMonthDay(input) {
+	if (input === undefined || input === null) return null
+	const date = new Date(input)
+	return date.toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+	})
+}

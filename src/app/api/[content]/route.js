@@ -31,13 +31,17 @@ export async function POST(request) {
 	const type = postObj.type
 	try {
 		const post = await addPost(postObj)
+		if (post.draft === 1) {
+			return NextResponse.json({ message: 'Post added successfully', post })
+		}
 		const logObj = {
 			ActivityType: postObj.type,
 			ActionType: 'added',
 			Description: postObj.title,
 			BlogPostID: type === 'blog' ? post.postID : null,
 			ProjectPostID: type === 'projects' ? post.postID : null,
-			NotesPostID: type === 'notes' ? post.postID : null
+			NotesPostID: type === 'notes' ? post.postID : null,
+			URL: `/${type}/${post.slug}`
 		}
 		const log = await addLog(logObj)
 		return NextResponse.json({ message: 'Post added successfully', post, log })

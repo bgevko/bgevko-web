@@ -26,6 +26,12 @@ export async function DELETE(request, { params }) {
 	const slug = params.slug
 	try {
 		const post = await removePostBySlug(slug, type)
+
+		// Don't add a log if the post is a draft
+		if (post.draft === 1) {
+			return NextResponse.json({ message: 'Post deleted', post: post })
+		}
+
 		const log = await addLog({ ActivityType: type, ActionType: 'deleted', Description: post.title })
 		return NextResponse.json({ message: 'Post deleted', post: post, log: log })
 	} catch (error) {
@@ -42,15 +48,31 @@ export async function PUT(request, { params }) {
 	const type = params.content
 	const slug = params.slug
 	const postObj = await request.json()
+
+
 	try {
+		const oldPost = await queryPostBySlug(slug, type)
 		const post = await updatePostBySlug(slug, postObj, type)
+		
+		// Don't add a log if the post is a draft
+		if (oldPost.postObj.draft === 1) {
+			return NextResponse.json({ message: 'Post updated', post: post })
+		}
+
+		// Determine if post is coming out of draft status, then it should be 'created' instead of 'updated'
+		let actionText = 'updated'
+		if (oldPost.draft === 1 && postObj.draft === 0) {
+			actionText = 'added'
+		}
+
 		const log = await addLog({ 
 			ActivityType: type, 
-			ActionType: 'updated', 
+			ActionType: actionText,
 			Description: post.title,
 			BlogPostID: type === 'blog' ? post.postID : null,
 			ProjectPostID: type === 'projects' ? post.postID : null,
-			NotesPostID: type === 'notes' ? post.postID : null
+			NotesPostID: type === 'notes' ? post.postID : null,
+			URL: `/${type}/${post.slug}`
 		})
 		return NextResponse.json({ message: 'Post updated', post: post, log: log })
 	} catch (error) {

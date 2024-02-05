@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server'
 import { useSearchParams } from 'next/navigation'
-import { getAll, addLog, sanitizeLog, purgeDeletedTypeLogs} from '@/lib/log'
+import { getAllLogs, addLog, sanitizeLog } from '@/lib/log'
 
 export const revalidate = 60
 
 export async function GET(request) {
 	try {
 		await sanitizeLog()
-		// await purgeDeletedTypeLogs()
-		const logs = await getAll()
+		const logs = await getAllLogs()
 		return NextResponse.json(logs)
 	} catch (error) {
 		return NextResponse.json(error)

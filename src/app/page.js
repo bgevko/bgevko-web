@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import StyledLink from '@/ui/StyledLink'
 import ProfilePhoto from '@/ui/ProfilePhoto'
-import ArticleCard from '@/ui/ArticleCard'
 import ProjectCard from '@/ui/ArticleCard2'
-import ActivityCard from '@/components/ActivityCard'
+import ActivityList from '@/components/ActivityList'
 import Socials from '@/components/Socials'
 import { getPostsMeta } from '@/lib/posts'
+import { getAllLogs } from '@/lib/log'
 
 import { LinkButtonRed, LinkButtonCyan } from '@/ui/Buttons'
 
@@ -27,10 +27,11 @@ async function getMetadata(type) {
 	}
 }
 
-async function getActivityLog() {
+async function getActivityLog(number=null) {
 	try {
-		const log = await fetch('/api/log')
+		const log = await getAllLogs()
 		if (!log) return []
+		if (number && log.length > number) return log.slice(0, number)
 		return log
 	} catch (err) {
 		console.log("getActivityLogs:error: ", err)
@@ -40,25 +41,11 @@ async function getActivityLog() {
 
 export default async function Home() {
 	const projectsData = await getMetadata('projects')
-	const activityData = await getActivityLog()
+	const activityLogs = await getActivityLog(25)
 
 	const projectCards = projectsData.map((post, index) => {
 		return (
-			<ProjectCard
-				key={index}
-				date={post.date}
-				title={post.title}
-				content={post.description}
-				tags={post.tags}
-				href={post.href}
-				image={post.image}
-			/>
-		)
-	})
-
-	const activityCards = activityData.map((entry, index) => {
-		return (
-			<ActivityCard key={index} entry={entry} />
+			<ProjectCard key={index} article={post}/>
 		)
 	})
 
@@ -86,17 +73,7 @@ export default async function Home() {
 					{projectCards}
 				</article>
 			</section>
-			{/* <section className="px-4 py-16 w-full gap-4 lg:max-w-5xl sm:mx-auto sm:rounded-lg flex flex-col items-center bg-gray-100"> */}
-			<section className="-mx-4 px-4 py-16 gap-4 flex flex-col items-center border-t border-b border-slate-200">
-				<p className="text-base text-gray-500">Recent Activity</p>
-				<div className="w-full flex flex-col gap-4">
-					{/* {activityCards} */}
-				</div>
-				<button className="px-4 py-2 mt-4 text-sm text-slate-400 border border-slate-400 rounded-md 
-													 hover:bg-slate-50 hover:text-slate-500 hover:border-slate-500 transition-colors duration-100">
-					Show More
-				</button>
-			</section>
+			{activityLogs.length > 0 && <ActivityList activityLogs={activityLogs} />}
 		</main>
   )
 }

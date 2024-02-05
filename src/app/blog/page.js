@@ -11,6 +11,7 @@ export const metadata = {
 async function getMetadata() {
 	try {
 		const posts = await getPostsMeta('blog')
+		console.log("posts: ", posts)
 		if (!posts) return []
 		return posts
 	} catch (err) {

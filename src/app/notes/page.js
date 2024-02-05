@@ -1,4 +1,3 @@
-import SectionTags from '@/ui/SectionTags'
 import Category from '@/ui/NoteCategory.jsx'
 import NoteLink from '@/ui/NoteLink.jsx'
 import NotesList from '@/ui/NotesList.jsx'

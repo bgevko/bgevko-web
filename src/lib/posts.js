@@ -87,12 +87,11 @@ export async function getPostBySlug(slug, type) {
 				href: `/${type}/${slug}`,
 				backlink: `/${type}`,
 				featured: frontmatter.featured ? true : false,
-				draft: frontmatter.draft ? true : false,
+				draft: query[0][0].draft
 			},
 			content,
 			raw: source,
 		}
-
 		return postObj
 	} catch (err) {
 		console.error("getPostBySlug:error: ", err)
@@ -177,7 +176,12 @@ export async function addPost(post) {
 		return null
 	}
 	try {
-		const query = await db.pool.query(`INSERT INTO ${dbPostType} (slug, content, title) VALUES (?, ?, ?)`, [post.slug, post.content, post.title])
+		const query = await db.pool.query(
+			`INSERT INTO ${dbPostType} 
+			(slug, content, title, draft) 
+			VALUES (?, ?, ?, ?)`, 
+			[post.slug, post.content, post.title, post.draft])
+
 		const newPost = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [post.slug])
 		return newPost[0][0]
 	} catch (err) {
@@ -197,7 +201,7 @@ export async function queryPostBySlug(slug, type) {
 	}
 	try {
 		const query = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
-		return query[0]
+		return query[0][0]
 	} catch (err) {
 		console.error("queryPostBySlug:error: ", err)
 		return null
@@ -236,9 +240,9 @@ export async function updatePostBySlug(slug, post, type) {
 		const query = await db.pool.query
 		(
 			`UPDATE ${dbPostType}
-			SET content = ?, title = ?
+			SET content = ?, title = ?, draft = ?
 			WHERE slug = ?`,
-			[post.content, post.title, slug]
+			[post.content, post.title, post.draft, slug]
 		)
 		const updatedItem = await db.pool.query(`SELECT * FROM ${dbPostType} WHERE slug = ?`, [slug])
 		return updatedItem[0][0]

@@ -31,27 +31,11 @@ const ArticlesList = ({articles}) => {
 				<AnimatePresence>
 					{filterSet.size == 0 &&
 						articles.map((article, index) => (
-							<ArticleCard key={index}
-								date={article.date}
-								title={article.title}
-								content={article.description}
-								tags={article.tags}
-								href={article.href}
-								image={article.image}
-							/>
-						))
+							<ArticleCard key={index} article={article}/>))
 					}
 					{filterSet.size > 0 &&
 						filteredItems.map((article, index) => (
-							<ArticleCard 
-								key={index}
-								date={article.date}
-								title={article.title}
-								content={article.description}
-								tags={article.tags}
-								href={article.href}
-								image={article.image}
-							/>
+							<ArticleCard key={index} article={article}/>
 						))
 					}
 				</AnimatePresence>

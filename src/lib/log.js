@@ -1,6 +1,6 @@
 const db = require('./db')
 
-export async function getAll() {
+export async function getAllLogs() {
 	try {
 		const logs = await db.pool.query('SELECT * FROM ActivityLog ORDER BY ActivityDate DESC')
 		return logs[0]
@@ -68,8 +68,8 @@ export async function addLog(log) {
 					return null
 				}
 				query = await db.pool.query(
-					`INSERT INTO ActivityLog (ActivityType, ActionType, Description, BlogPostID) VALUES (?, ?, ?, ?)`,
-					[log.ActivityType, log.ActionType, log.Description, log?.BlogPostID]
+					`INSERT INTO ActivityLog (ActivityType, ActionType, Description, BlogPostID, URL) VALUES (?, ?, ?, ?, ?)`,
+					[log.ActivityType, log.ActionType, log.Description, log?.BlogPostID, log?.URL]
 				)
 				break
 			case 'projects':
@@ -78,8 +78,8 @@ export async function addLog(log) {
 					return null
 				}
 				query = await db.pool.query(
-					`INSERT INTO ActivityLog (ActivityType, ActionType, Description, ProjectPostID) VALUES (?, ?, ?, ?)`,
-					[log.ActivityType, log.ActionType, log.Description, log?.ProjectPostID]
+					`INSERT INTO ActivityLog (ActivityType, ActionType, Description, ProjectPostID, URL) VALUES (?, ?, ?, ?, ?)`,
+					[log.ActivityType, log.ActionType, log.Description, log?.ProjectPostID, log?.URL]
 				)
 				break
 			case 'notes':
@@ -88,8 +88,8 @@ export async function addLog(log) {
 					return null
 				}
 				query = await db.pool.query(
-					`INSERT INTO ActivityLog (ActivityType, ActionType, Description, NotesPostID) VALUES (?, ?, ?, ?)`,
-					[log.ActivityType, log.ActionType, log.Description, log?.NotesPostID]
+					`INSERT INTO ActivityLog (ActivityType, ActionType, Description, NotesPostID, URL) VALUES (?, ?, ?, ?, ?)`,
+					[log.ActivityType, log.ActionType, log.Description, log?.NotesPostID, log?.URL]
 				)
 				break
 			case 'features':
@@ -117,27 +117,15 @@ export async function addLog(log) {
 
 export async function sanitizeLog() {
 	try {
-		// Remove all project logs without a ProjectPostID
-		const projectLogs = await db.pool.query(
-		`DELETE FROM ActivityLog WHERE ActivityType = 'projects'
-		AND ActionType != 'deleted'
-		AND ProjectPostID IS NULL`
+		await db.pool.query(
+			`DELETE FROM ActivityLog
+			WHERE
+				(ActivityType = 'blog' AND ActionType != 'deleted' AND (BlogPostID IS NULL OR URL IS NULL))
+				OR
+				(ActivityType = 'projects' AND ActionType != 'deleted' AND (ProjectPostID IS NULL OR URL IS NULL))
+				OR
+				(ActivityType = 'notes' AND ActionType != 'deleted' AND (NotesPostID IS NULL OR URL IS NULL))`
 		)
-
-		// Remove all blog logs without a BlogPostID
-		const blogLogs = await db.pool.query(
-		`DELETE FROM ActivityLog WHERE ActivityType = 'blog'
-		AND ActionType != 'deleted'
-		AND BlogPostID IS NULL`
-		)
-
-		// Remove all note logs without a NotesPostID
-		const noteLogs = await db.pool.query(
-		`DELETE FROM ActivityLog WHERE ActivityType = 'notes'
-		AND ActionType != 'deleted'
-		AND NotesPostID IS NULL`
-		)
-
 	} catch (err) {
 		console.error("sanitizeLog:error: ", err)
 		return null
@@ -153,6 +141,19 @@ export async function purgeDeletedTypeLogs() {
 		return query[0]
 	} catch (err) {
 		console.error("purgeDeletedTypeLogs:error: ", err)
+		return null
+	}
+}
+
+export async function clearTestLogs() {
+	try {
+		// Remove all logs with Description starting with 'test'
+		const query = await db.pool.query(
+		`DELETE FROM ActivityLog WHERE Description LIKE 'test%'`
+		)
+		return query[0]
+	} catch (err) {
+		console.error("clearTestLogs:error: ", err)
 		return null
 	}
 }
