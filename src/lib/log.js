@@ -10,13 +10,13 @@ export async function getAll() {
 	}
 }
 
-export async function getById(id) {
+export async function getLogById(id) {
 	if (!id) {
 		console.error("getById:error: invalid argument. Must be a number")
 		return null
 	}
 	try {
-		const log = await db.pool.query('SELECT * FROM ActivityLog WHERE ID = ?', [id])
+		const log = await db.pool.query('SELECT * FROM ActivityLog WHERE ActivityID = ?', [id])
 		return log[0][0]
 	} catch (err) {
 		console.error("getById:error: ", err)
@@ -24,13 +24,13 @@ export async function getById(id) {
 	}
 }
 
-export async function adjustById(id, log) {
+export async function adjustLogById(id, log) {
 	if (!id || !log) {
 		console.error("adjustById:error: invalid argument. Must be a number and an object")
 		return null
 	}
 	try {
-		const query = await db.pool.query('UPDATE ActivityLog SET ? WHERE ID = ?', [log, id])
+		const query = await db.pool.query('UPDATE ActivityLog SET ? WHERE ActivityID = ?', [log, id])
 		return query[0]
 	} catch (err) {
 		console.error("adjustById:error: ", err)
@@ -38,13 +38,13 @@ export async function adjustById(id, log) {
 	}
 }
 
-export async function removeByLogId(id) {
+export async function removeLogById(id) {
 	if (!id) {
 		console.error("removeById:error: invalid argument. Must be a number")
 		return null
 	}
 	try {
-		const query = await db.pool.query('DELETE FROM ActivityLog WHERE ID = ?', [id])
+		const query = await db.pool.query('DELETE FROM ActivityLog WHERE ActivityID = ?', [id])
 		return query[0]
 	} catch (err) {
 		console.error("removeById:error: ", err)
@@ -84,7 +84,7 @@ export async function addLog(log) {
 				break
 			case 'notes':
 				if (log.ActionType !== 'deleted' && !log.NotesPostID) {
-					console.error("addLog:error: Can't add a note log without a NoteID")
+					console.error("addLog:error: Can't add a note log without a NotesPostID")
 					return null
 				}
 				query = await db.pool.query(

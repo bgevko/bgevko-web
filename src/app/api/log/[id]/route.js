@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server'
 import { useSearchParams } from 'next/navigation'
-import { getById, adjustById, removeById } from '@/lib/log'
+import { getLogById, adjustLogById, removeLogById } from '@/lib/log'
 
 export const revalidate = 60
 
 export async function GET(request, { params }) {
   const id = params.id
 	try {
-		const log = await getById(id)
+		const log = await getLogById(id)
 		return NextResponse.json(log)
 	} catch (error) {
 		return NextResponse.json(error)
@@ -22,7 +22,7 @@ export async function DELETE(request, { params }) {
 
 	const id = params.id
 	try {
-		const log = await removeById(id)
+		const log = await removeLogById(id)
 		return NextResponse.json(log)
 	} catch (error) {
 		return NextResponse.json(error)
@@ -38,7 +38,7 @@ export async function PUT(request, { params }) {
 	const id = params.id
 	const logObj = await request.json()
 	try {
-		const log = await adjustById(id, logObj)
+		const log = await adjustLogById(id, logObj)
 		return NextResponse.json(log)
 	} catch (error) {
 		return NextResponse.json("Error adjusting log. Error: " + error)
