@@ -31,7 +31,7 @@ export async function POST(request) {
 	const type = postObj.type
 	try {
 		const post = await addPost(postObj)
-		if (post.draft === 1) {
+		if (post.draft === 1 || postObj.muteActivity === 1) {
 			return NextResponse.json({ message: 'Post added successfully', post })
 		}
 		const logObj = {

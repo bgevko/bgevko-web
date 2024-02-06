@@ -24,11 +24,13 @@ export async function DELETE(request, { params }) {
 
 	const type = params.content
 	const slug = params.slug
+	const postObj = await request.json() 
+
 	try {
 		const post = await removePostBySlug(slug, type)
 
 		// Don't add a log if the post is a draft
-		if (post.draft === 1) {
+		if (post.draft === 1 || postObj.muteActivity === 1) {
 			return NextResponse.json({ message: 'Post deleted', post: post })
 		}
 
@@ -55,7 +57,7 @@ export async function PUT(request, { params }) {
 		const post = await updatePostBySlug(slug, postObj, type)
 		
 		// Don't add a log if the post is a draft
-		if (postObj.draft === 1) {
+		if (postObj.draft === 1 || postObj.muteActivity === 1) {
 			return NextResponse.json({ message: 'Post updated', post: post })
 		}
 
